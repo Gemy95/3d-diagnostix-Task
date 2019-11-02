@@ -40,14 +40,16 @@ module.exports = function(passport,Student,Teacher) {
    },
    function(req, email, password, done){
     type=req.body.type;
-    var model;var directory;
+    var model , directory , customType;
     if(type=="students")
     {
+    customType="student";
     model=Student;
     directory="uploadedStudentImages";
     }
     else
     {
+    customType="teacher";  
     model=Teacher;
     directory="uploadedTeacherImages";
     }
@@ -67,6 +69,8 @@ module.exports = function(passport,Student,Teacher) {
          email: req.body.email,
          password: bcrypt.hashSync(req.body.password, null, null),
          phoneNumber: req.body.phoneNumber,
+         address:req.body.address,
+         type:customType
         };
    
         try {
@@ -87,7 +91,9 @@ module.exports = function(passport,Student,Teacher) {
          email: obj.email,
          password: obj.password,
          image:obj.image,
-         phoneNumber:obj.phoneNumber
+         phoneNumber:obj.phoneNumber,
+         address:obj.address,
+         type : obj.type
         })
         .then((row)=>{
           obj.ID = row.ID;

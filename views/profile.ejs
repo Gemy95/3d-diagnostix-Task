@@ -5,33 +5,30 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
  <title>Login Register</title>
- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  <link rel="stylesheet" 
  href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
- <style>
-  html{
-   padding:50px;
-  }
- </style>
+ 
 </head>
 <body>
- <div class="container">
-  <div class="page-header text-center">
+ <div class="container-fluid">
+        <% include ./partials/navbar %>
+  <div class="text-center" style="padding: 10px;">
    <h1>My Profile</h1>
-   <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
   </div>
 
   <div class="row">
    <div class="col-sm-12">
-    <div><img src="http://localhost:8080<%=user.image%>" style="width:50px;height: 50px;"></div>
-    E:\ITI2\task 3d\3D Diagnostix nodejs\public\uploadedStudentImages\image-1572695842551.jpg
-    <div class="well">
+    <div class="card card-body bg-light">
+     <div class="text-center"><img class="rounded-circle" src="http://localhost:8080<%=user.image%>" style="width:100px;height: 100px;"></div>
      <h3><span class="fa fa-user"></span> Welcome <%= user.firstName %> </h3>
      <br>
      <p>
       <strong>fullName: </strong> <%= user.firstName %> <%= user.lastName %> <br><br>
       <strong>Email : </strong> <%= user.email %> <br><br>
       <strong>Phone Number : </strong> <%= user.phoneNumber %> <br><br>
+      <strong>Address : </strong> <%= user.address %> <br><br>
+      <strong>Type : </strong> <%= user.type %> <br><br>
      </p>
     </div>
    </div>
