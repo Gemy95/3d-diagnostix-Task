@@ -36,6 +36,10 @@ Student.init({
   password: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  phoneNumber: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 }
 

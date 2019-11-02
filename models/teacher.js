@@ -37,6 +37,11 @@ Teacher.init({
     type: Sequelize.STRING,
     allowNull: false
   }
+  ,
+  phoneNumber: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
 }
 
 , {

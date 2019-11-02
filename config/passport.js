@@ -65,7 +65,8 @@ module.exports = function(passport,Student,Teacher) {
          firstName:req.body.firstName,
          lastName:req.body.lastName,
          email: req.body.email,
-         password: bcrypt.hashSync(req.body.password, null, null)
+         password: bcrypt.hashSync(req.body.password, null, null),
+         phoneNumber: req.body.phoneNumber,
         };
    
         try {
@@ -85,7 +86,8 @@ module.exports = function(passport,Student,Teacher) {
          lastName:obj.lastName,
          email: obj.email,
          password: obj.password,
-         image:obj.image
+         image:obj.image,
+         phoneNumber:obj.phoneNumber
         })
         .then((row)=>{
           obj.ID = row.ID;
