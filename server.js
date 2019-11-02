@@ -10,9 +10,12 @@ var passport = require('passport');
 var flash = require('connect-flash');
 
 var Student=require("./models/student");
-var studentObj=new Student();
 
-require('./config/passport')(passport);
+var Teacher=require("./models/teacher");
+
+
+
+require('./config/passport')(passport,Student,Teacher);
 
 
 //app.use(morgan('dev'));
@@ -35,33 +38,8 @@ app.use(flash());
 app.use(express.static('/public'));
 
 require('./app/loginAndRegisterRoutes.js')(app, passport);
-/*
-student.create({
-    firstName: 'John',
-    lastName: 'Hancock',
-    email:'emailaamdagsfkjags',
-    password:"123",
-    image:"111"
-  }).then((user)=>{
-      console.log("success")
-  }).catch((e)=>{
-      console.log("sorry")
-  })
-  */
 
-  app.get("/getAll",function(req,res){
-    Student.findAll().then(users => {
-        res.status(200).json({
-            status:true,
-            message:users  
-        })
-    }).catch((e)=>{
-        res.status(200).json({
-            status:false,
-            message:"not found"  
-        })
-    })
-  })
+
 
 
 app.listen(port,function(){

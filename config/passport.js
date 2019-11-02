@@ -1,36 +1,36 @@
 
 var LocalStrategy = require("passport-local").Strategy;
 
-var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
-var dbconfig = require('./database');
 var fs = require('fs');
-var connection = mysql.createConnection(dbconfig.connection);
 
 var type;
 
-connection.query('USE ' + dbconfig.database);
-
-// function to encode file data to base64 encoded string
-function base64_encode(file) {
-  // read binary data
-  var bitmap = fs.readFileSync(file);
-  // convert binary data to base64 encoded string
-  return new Buffer(bitmap).toString('base64');
-}
-
-module.exports = function(passport) {
+module.exports = function(passport,Student,Teacher) {
  passport.serializeUser(function(user, done){
   done(null, user.ID);
  });
 
  passport.deserializeUser(function(ID, done){
-  connection.query("SELECT * FROM "+type+" WHERE ID = ? ", ID,
-   function(err, rows){
-    done(err, rows[0]);
-   });
- });
+  var model;
+  if(type=="students")
+    model=Student
+  else
+    model=Teacher
 
+  model.findAll({
+      limit: 1,
+      where: {
+           "ID":ID
+      }
+    }).then(function(rows){
+      done(null, rows[0]);
+    }).catch( (err)=>{ done(err,null) } ); 
+  
+  });
+
+  //////////////////////////////////////////////////////////////////////////
+  ////////////////////////////local signup//////////////////////////////////
  passport.use(
   'local-signup',
   new LocalStrategy({
@@ -40,54 +40,72 @@ module.exports = function(passport) {
    },
    function(req, email, password, done){
     type=req.body.type;
-    //console.log(req.body);
-   connection.query("SELECT * FROM "+type+" WHERE email = ? ", 
-   email, function(err, rows){
-    if(err)
-     return done(err);
-    if(rows.length){
-     return done(null, false, req.flash('signupMessage', 'That is already taken'));
-    }else{
-     var obj = {
-      firstName:req.body.firstName,
-      lastName:req.body.lastName,
-      email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, null, null)
-     };
-     var directory;
-     if(type=="students")
-     directory="uploadedStudentImages";
-     else
-     directory="uploadedTeacherImages";
-
-     try {
-      const pathImage = './public/'+directory+'/'+'image-'+Date.now()+'.jpg'
-      const image = req.body.image; 
-      const base64Data = image.replace(/^data:([A-Za-z-+/]+);base64,/, '');
-      fs.writeFileSync(pathImage, base64Data,  {encoding: 'base64'});
-      obj.image=pathImage.split('./public')[1];
-     }
-     catch(e)
-     {
-       console.log(e);
-      return done(null, false, req.flash('signupMessage', 'error occurred from adding image'));
-     }
-
-     var insertQuery = "INSERT INTO "+type+" (firstName,lastName,email,image,password) values (?,?,?,?,?)";
-
-     connection.query(insertQuery, [obj.firstName,obj.lastName,obj.email,obj.image,obj.password],
-      function(err, row){
-        if(err){
-          return done(null, false, req.flash('signupMessage', 'error occurred'));
-         }
-       obj.ID = row.insertId;
-       return done(null, obj);
-      });
+    var model;var directory;
+    if(type=="students")
+    {
+    model=Student;
+    directory="uploadedStudentImages";
     }
-   });
+    else
+    {
+    model=Teacher;
+    directory="uploadedTeacherImages";
+    }
+    model.findAll({
+      where:{
+        "email":email
+      }
+    })
+    .then((rows)=>{
+      if(rows.length){
+        return done(null, false, req.flash('signupMessage', 'That is already taken'));
+       }
+       else{
+        var obj = {
+         firstName:req.body.firstName,
+         lastName:req.body.lastName,
+         email: req.body.email,
+         password: bcrypt.hashSync(req.body.password, null, null)
+        };
+   
+        try {
+         const pathImage = './public/'+directory+'/'+'image-'+Date.now()+'.jpg'
+         const image = req.body.image; 
+         const base64Data = image.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+         fs.writeFileSync(pathImage, base64Data,  {encoding: 'base64'});
+         obj.image=pathImage.split('./public')[1];
+        }
+        catch(e)
+        {
+         return done(null, false, req.flash('signupMessage', 'error occurred from adding image'));
+        }
+   
+        model.create({
+         firstName:obj.firstName,
+         lastName:obj.lastName,
+         email: obj.email,
+         password: obj.password,
+         image:obj.image
+        })
+        .then((row)=>{
+          obj.ID = row.ID;
+          return done(null, obj);
+        })
+        .catch((err)=>{
+          return done(null, false, req.flash('signupMessage', 'error occurred'));
+        })
+
+       }
+    })
+    .catch((err)=>{
+      return done(err);
+    })
+
   })
  );
 
+ ////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////local login//////////////////////////////////
  passport.use(
   'local-login',
   new LocalStrategy({
@@ -97,18 +115,30 @@ module.exports = function(passport) {
   },
   function(req, email, password, done){
     type=req.body.type;
-   connection.query("SELECT * FROM "+type+" WHERE email = ? ",email,
-   function(err, rows){
-    if(err)
-     return done(err);
-    if(!rows.length){
-     return done(null, false, req.flash('loginMessage', 'No User Found'));
-    }
-    if(!bcrypt.compareSync(password, rows[0].password))
-     return done(null, false, req.flash('loginMessage', 'Wrong Password'));
-
-    return done(null, rows[0]);
-   });
+    var model;
+    if(type=="students")
+    model=Student;
+    else
+    model=Teacher;
+    
+    model.findAll({
+        limit:1,
+        where:{
+          "email":email
+        }
+      })
+      .then((rows)=>{
+        if(!rows.length){
+          return done(null, false, req.flash('loginMessage', 'No User Found'));
+         }
+         if(!bcrypt.compareSync(password, rows[0].password))
+          return done(null, false, req.flash('loginMessage', 'Wrong Password'));
+     
+         return done(null, rows[0]);
+      }).catch((err)=>{
+        return done(err);
+      })
+  
   })
  );
 };
