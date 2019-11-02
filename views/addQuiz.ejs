@@ -1,0 +1,144 @@
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container-fluid">
+        <% include ./partials/navbar %>
+        <br><br>
+    <div class="row">
+        <div class="col-12 text-center">
+        <span style="font-size: 3vw;">Publish Your Quick Quiz Now</span>
+        </div> 
+    </div>
+    <br><br>
+    <div class="row">      
+    <div class="col-sm-12 table-responsive">
+    <table id="myTable" class="table order-list text-center">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Question</th>
+            <th>Answer1</th>
+            <th>Answer2</th>
+            <th>Answer3</th>
+            <th>Answer4</th>
+            <th>Correct</th>
+            <th>Explaination</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+               <label>1</label>
+            </td>
+            <td>
+                <input type="text" name="question1" class="form-control" />
+            </td>
+            <td>
+                <input type="text" name="answer1"  class="form-control"/>
+            </td>
+            <td>
+                <input type="text" name="answer2"  class="form-control"/>
+            </td>
+            <td>
+                <input type="text" name="answer3"  class="form-control"/>
+            </td>
+            <td>
+                <input type="text" name="answer4"  class="form-control"/>
+            </td>
+            <td>
+                <input type="text" name="correct1"  class="form-control"/>
+            </td>
+            <td>
+                <input type="text" name="explaination1"  class="form-control"/>
+            </td>
+            <td>
+                <a class="deleteRow"></a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="12" style="text-align: left;">
+                <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
+            </td>
+        </tr>
+    </tfoot>
+</table>
+</div>
+<div class="col-12 text-center" style="padding-top: 10px;"> 
+<button class="btn btn-primary" onclick="publish_quiz()">publish Now</button>
+&nbsp;
+<button class="btn btn-warning">Save</button>
+</div>
+</div>
+</div>
+<script>
+    
+$(document).ready(function () {
+    var counter = 1;
+
+    $("#addrow").on("click", function () {
+        var newRow = $("<tr>");
+        var cols = "";
+      
+        cols += '<td> <label>'+(counter+1)+'</label></td>';
+        cols += '<td><input type="text" class="form-control" name="question' + (counter+1) + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +1) + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +2) + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +3) + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +4) + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="correct' + (counter+1)+ '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="explaination' + (counter+1) + '"/></td>';
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list").append(newRow);
+        counter++;
+    });
+
+
+    $("table.order-list").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+
+    
+});
+
+function countRows()
+{
+    var count = parseInt(document.getElementById("myTable").rows.length)-2;
+    return count;
+}
+
+function publish_quiz()
+{
+   var count = countRows();
+   console.log("count="+count);
+   var quiz=[];
+   for(let row=0;row<count;row++)
+   {
+     var question,answer1,answer2,answer3,answer4,correct,explaination; 
+     question = document.getElementsByName("question"+(row+1))[0].value;
+     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value;
+     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value;
+     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value;
+     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value;
+     correct = document.getElementsByName("correct"+(row+1))[0].value;
+     explaination = document.getElementsByName("explaination"+(row+1))[0].value;
+      
+     quiz[row]={
+         "question":question,
+         "answer1":answer1,
+         "answer2":answer2,
+         "answer3":answer3,
+         "answer4":answer4,
+         "correct":correct,
+         "explaination":explaination
+     };
+   }
+   console.log(quiz);
+}
+
+</script>

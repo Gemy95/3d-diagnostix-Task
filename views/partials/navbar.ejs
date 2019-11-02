@@ -21,6 +21,11 @@
             <li class="nav-item">
               <a class="nav-link" href="/profile"> Profile</a>
             </li>
+            <% if(user.type=="teacher") { %>
+            <li class="nav-item">
+                <a class="nav-link" href="/addQuiz"> addQuiz</a>
+            </li>
+            <% } %>
             <li class="nav-item">
               <a href="/logout" class="nav-link">Logout</a>
             </li>

@@ -44,6 +44,13 @@ module.exports = function(app, passport) {
   req.logout();
   res.redirect('/');
  })
+
+ app.get('/addQuiz', isLoggedIn, function(req, res){
+    res.render('addQuiz.ejs', {
+     user:req.user
+    });
+});
+
 };
 
 function isLoggedIn(req, res, next){
