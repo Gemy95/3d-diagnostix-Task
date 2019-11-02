@@ -13,10 +13,7 @@ var Student=require("./models/student");
 
 var Teacher=require("./models/teacher");
 
-
-
 require('./config/passport')(passport,Student,Teacher);
-
 
 //app.use(morgan('dev'));
 app.use(cookieParser());
@@ -38,6 +35,7 @@ app.use(flash());
 app.use(express.static(__dirname+'/public'));
 
 require('./app/loginAndRegisterRoutes.js')(app, passport);
+require('./app/quizRoutes.js')(app, passport);
 
 
 app.listen(port,function(){

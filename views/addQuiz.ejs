@@ -11,17 +11,18 @@
     </div>
     <br><br>
     <div class="row">  
-    <form class="form-horizontal">   
+    <form class="form-horizontal" method="POST" action="/addQuiz">   
      <div class="col-12 form-group">
         <span style="font-size: 2vw;" >Quiz Name : </span>
         <input type="text" name="quizName" class=" col-2" required /> 
         &nbsp;&nbsp;
         <span style="font-size: 2vw;" >Category : </span>
-        <select name="category">
+        <select name="category" required>
            <option value="math">math</option>
            <option value="chemistry">chemistry</option>
            <option value="geography">geography</option>
            <option value="english">english</option>
+           <option value="history">english</option>
         </select>
      </div>
      <br> 
@@ -81,7 +82,7 @@
 </table>
 </div>
 <div class="col-12 text-center" style="padding-top: 10px;"> 
-<button class="btn btn-danger" onclick="validateCorrectAnswer();return false">Validate</button>
+<button class="btn btn-danger" onclick="validateCorrectAnswer();return false;">Validate</button>
 &nbsp;
 <button id="publish" class="btn btn-primary" type="submit" onclick="publish_quiz()" disabled>Publish Now</button>
 &nbsp;
@@ -112,6 +113,8 @@ $(document).ready(function () {
         newRow.append(cols);
         $("table.order-list").append(newRow);
         counter++;
+        document.getElementById("publish").disabled=true;
+
     });
 
 
@@ -159,6 +162,7 @@ function publish_quiz()
    quiz={"name":document.getElementsByName('quizName')[0].value,
    "category":document.getElementsByName('category')[0].value,"isReady":true}
    console.log(allQuestions);
+   document.getElementById("publish").disabled=true;
 }
 
 function validateCorrectAnswer()
@@ -174,7 +178,7 @@ function validateCorrectAnswer()
      answer4 = document.getElementsByName("answer"+(4*row +4))[0].value;
      correct = document.getElementsByName("correct"+(row+1))[0].value;
       
-     if( correct===answer1 || correct===answer2 || correct===answer3 || correct===answer4)
+     if( (correct===answer1 || correct===answer2 || correct===answer3 || correct===answer4 ) && (correct !=""))
      {
            continue;
      }
