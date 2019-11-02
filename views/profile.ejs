@@ -23,12 +23,15 @@
 
   <div class="row">
    <div class="col-sm-12">
+    <div><img src="http://localhost:8080<%=user.image%>" style="width:50px;height: 50px;"></div>
+    E:\ITI2\task 3d\3D Diagnostix nodejs\public\uploadedStudentImages\image-1572695842551.jpg
     <div class="well">
-     <h3><span class="fa fa-user"></span> Welcome <%= user.firstName %> <%= user.lastName %></h3>
-
+     <h3><span class="fa fa-user"></span> Welcome <%= user.firstName %> </h3>
+     <br>
      <p>
-      <strong>ID</strong> <%= user.ID %> <br>
-      <strong>fullName</strong> <%= user.firstName %> <%= user.lastName %> <br>
+      <strong>fullName: </strong> <%= user.firstName %> <%= user.lastName %> <br><br>
+      <strong>Email : </strong> <%= user.email %> <br><br>
+      <strong>Phone Number : </strong> <%= user.phoneNumber %> <br><br>
      </p>
     </div>
    </div>

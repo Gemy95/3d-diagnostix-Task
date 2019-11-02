@@ -35,11 +35,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use(express.static('/public'));
+app.use(express.static(__dirname+'/public'));
 
 require('./app/loginAndRegisterRoutes.js')(app, passport);
-
-
 
 
 app.listen(port,function(){
