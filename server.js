@@ -14,6 +14,7 @@ var studentObj=new Student();
 
 require('./config/passport')(passport);
 
+
 //app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
@@ -34,6 +35,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+app.use(express.static('/public'));
 
 require('./app/loginAndRegisterRoutes.js')(app, passport);
 /*

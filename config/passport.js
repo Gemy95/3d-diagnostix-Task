@@ -11,6 +11,14 @@ var type;
 
 connection.query('USE ' + dbconfig.database);
 
+// function to encode file data to base64 encoded string
+function base64_encode(file) {
+  // read binary data
+  var bitmap = fs.readFileSync(file);
+  // convert binary data to base64 encoded string
+  return new Buffer(bitmap).toString('base64');
+}
+
 module.exports = function(passport) {
  passport.serializeUser(function(user, done){
   done(null, user.ID);
@@ -32,6 +40,7 @@ module.exports = function(passport) {
    },
    function(req, email, password, done){
     type=req.body.type;
+    console.log(req.body);
    connection.query("SELECT * FROM "+type+" WHERE email = ? ", 
    email, function(err, rows){
     if(err)

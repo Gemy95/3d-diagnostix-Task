@@ -23,7 +23,7 @@
     <div class="alert alert-danger"><%= message %></div> 
    <% } %>
 
-<form action="/signup" method="post"  enctype="multipart/x-www-form-urlencoded">
+<form action="/signup" method="post" >
  
     <div class="form-group">
      <label>firstName</label>
@@ -47,7 +47,8 @@
  
     <div class="form-group">
     <label>Image</label>
-    <input type="file" class="form-control" name="image" required>
+    <input type="file" class="form-control" name="imageFile" id="myinput" onchange="encode();"  required>
+    <input type="text" name="image" id="myoutput" hidden>
     </div>
 
     <div class="form-group">
@@ -68,5 +69,22 @@
    <p>Go Back <a href="/">Home</a>.</p>
   </div>
  </div>
+
+ <script>
+        function encode() {
+          var selectedfile = document.getElementById("myinput").files;
+          if (selectedfile.length > 0) {
+            var imageFile = selectedfile[0];
+            var fileReader = new FileReader();
+            fileReader.onload = function(fileLoadedEvent) {
+              var srcData = fileLoadedEvent.target.result;
+              var newImage = document.createElement('img');
+              newImage.src = srcData;
+             document.getElementById("myoutput").value = srcData;
+            }
+            fileReader.readAsDataURL(imageFile);
+          }
+        }
+      </script>
 </body>
 </html>
