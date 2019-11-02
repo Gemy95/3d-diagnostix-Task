@@ -9,6 +9,13 @@ class Connection {
             }
           }
           );
+   this.con.authenticate()
+    .then(() => {
+     console.log('Connection to database has been established successfully.');
+     })
+    .catch(err => {
+    console.error('sorry Unable to connect to the database');
+  });
     } 
 }
 var obj= new Connection();
