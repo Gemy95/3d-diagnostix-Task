@@ -40,7 +40,7 @@ module.exports = function(passport) {
    },
    function(req, email, password, done){
     type=req.body.type;
-    console.log(req.body);
+    //console.log(req.body);
    connection.query("SELECT * FROM "+type+" WHERE email = ? ", 
    email, function(err, rows){
     if(err)
@@ -99,7 +99,6 @@ module.exports = function(passport) {
     type=req.body.type;
    connection.query("SELECT * FROM "+type+" WHERE email = ? ",email,
    function(err, rows){
-     console.log(rows[0]);
     if(err)
      return done(err);
     if(!rows.length){

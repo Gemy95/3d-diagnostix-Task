@@ -17,12 +17,8 @@ require('./config/passport')(passport);
 
 //app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({
- extended: true
-}));
-
-// parse application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
  
 app.set('view engine', 'ejs');
 
