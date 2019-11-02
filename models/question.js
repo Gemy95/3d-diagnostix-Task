@@ -3,38 +3,53 @@ const Sequelize = require("sequelize");
 const Model = Sequelize.Model;
 const con = connection;
 
-class Quiz extends Model {
+class Question extends Model {
    
 }
 
-Quiz.init({
+Question.init({
   // attributes
   ID: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
-  name: {
+  answer1: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  category: {
+  answer2: {
     type: Sequelize.STRING,
     allowNull: false
   }
   ,
-  teacherID: {
-    type: Sequelize.INTEGER,
+  answer3: {
+    type: Sequelize.STRING,
     allowNull: false
   }
   ,
-  isReady: {
-    type: Sequelize.BOOLEAN,
+  answer4: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+  ,
+  correct: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+  ,
+  explaination	: {
+    type: Sequelize.STRING,
     allowNull: false
   }
   ,
   creationDate: {
     type: Sequelize.DATE,
+    allowNull: false
+  },
+  quizID:
+  {
+    type: Sequelize.INTEGER,
     allowNull: false
   }
 
@@ -48,4 +63,4 @@ Quiz.init({
 
 
 
-  module.exports=Quiz;
+  module.exports=Question;

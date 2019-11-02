@@ -10,7 +10,21 @@
         </div> 
     </div>
     <br><br>
-    <div class="row">      
+    <div class="row">  
+    <form class="form-horizontal">   
+     <div class="col-12 form-group">
+        <span style="font-size: 2vw;" >Quiz Name : </span>
+        <input type="text" name="quizName" class=" col-2" required /> 
+        &nbsp;&nbsp;
+        <span style="font-size: 2vw;" >Category : </span>
+        <select name="category">
+           <option value="math">math</option>
+           <option value="chemistry">chemistry</option>
+           <option value="geography">geography</option>
+           <option value="english">english</option>
+        </select>
+     </div>
+     <br> 
     <div class="col-sm-12 table-responsive">
     <table id="myTable" class="table order-list text-center">
     <thead>
@@ -32,25 +46,25 @@
                <label>1</label>
             </td>
             <td>
-                <input type="text" name="question1" class="form-control" />
+                <input type="text" name="question1" class="form-control" required />
             </td>
             <td>
-                <input type="text" name="answer1"  class="form-control"/>
+                <input type="text" name="answer1"  class="form-control" required />
             </td>
             <td>
-                <input type="text" name="answer2"  class="form-control"/>
+                <input type="text" name="answer2"  class="form-control" required />
             </td>
             <td>
-                <input type="text" name="answer3"  class="form-control"/>
+                <input type="text" name="answer3"  class="form-control" required />
             </td>
             <td>
-                <input type="text" name="answer4"  class="form-control"/>
+                <input type="text" name="answer4"  class="form-control" required />
             </td>
             <td>
-                <input type="text" name="correct1"  class="form-control"/>
+                <input type="text" name="correct1"  class="form-control" required />
             </td>
             <td>
-                <input type="text" name="explaination1"  class="form-control"/>
+                <input type="text" name="explaination1"  class="form-control" required />
             </td>
             <td>
                 <a class="deleteRow"></a>
@@ -60,17 +74,20 @@
     <tfoot>
         <tr>
             <td colspan="12" style="text-align: left;">
-                <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
+                <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Question" />
             </td>
         </tr>
     </tfoot>
 </table>
 </div>
 <div class="col-12 text-center" style="padding-top: 10px;"> 
-<button class="btn btn-primary" onclick="publish_quiz()">publish Now</button>
+<button class="btn btn-danger" onclick="validateCorrectAnswer();return false">Validate</button>
+&nbsp;
+<button class="btn btn-primary" type="submit" onclick="publish_quiz()">Publish Now</button>
 &nbsp;
 <button class="btn btn-warning">Save</button>
 </div>
+</form>
 </div>
 </div>
 <script>
@@ -83,13 +100,13 @@ $(document).ready(function () {
         var cols = "";
       
         cols += '<td> <label>'+(counter+1)+'</label></td>';
-        cols += '<td><input type="text" class="form-control" name="question' + (counter+1) + '"/></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +1) + '"/></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +2) + '"/></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +3) + '"/></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +4) + '"/></td>';
-        cols += '<td><input type="text" class="form-control" name="correct' + (counter+1)+ '"/></td>';
-        cols += '<td><input type="text" class="form-control" name="explaination' + (counter+1) + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="question' + (counter+1) + '" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +1) + '" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +2) + '" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +3) + '" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +4) + '" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="correct' + (counter+1)+ '" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="explaination' + (counter+1) + '" required /></td>';
 
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td>';
         newRow.append(cols);
@@ -116,6 +133,7 @@ function publish_quiz()
 {
    var count = countRows();
    console.log("count="+count);
+   var allQuestions=[];
    var quiz=[];
    for(let row=0;row<count;row++)
    {
@@ -128,7 +146,7 @@ function publish_quiz()
      correct = document.getElementsByName("correct"+(row+1))[0].value;
      explaination = document.getElementsByName("explaination"+(row+1))[0].value;
       
-     quiz[row]={
+     allQuestions[row]={
          "question":question,
          "answer1":answer1,
          "answer2":answer2,
@@ -138,7 +156,35 @@ function publish_quiz()
          "explaination":explaination
      };
    }
-   console.log(quiz);
+   quiz={"name":document.getElementsByName('quizName')[0].value,
+   "category":document.getElementsByName('category')[0].value,"isReady":true}
+   console.log(allQuestions);
+}
+
+function validateCorrectAnswer()
+{
+   var status=true; 
+   var count = countRows();
+   for(let row=0;row<count;row++)
+   {
+     var answer1,answer2,answer3,answer4,correct; 
+     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value;
+     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value;
+     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value;
+     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value;
+     correct = document.getElementsByName("correct"+(row+1))[0].value;
+      
+     if( correct===answer1 || correct===answer2 || correct===answer3 || correct===answer4)
+     {
+           continue;
+     }
+     else
+     {
+         status=false;
+     }
+   
+   }
+  console.log("status="+status);
 }
 
 </script>
