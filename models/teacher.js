@@ -23,6 +23,11 @@ Teacher.init({
     allowNull: false
   }
   ,
+  age: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+  ,
   email: {
     type: Sequelize.STRING,
     allowNull: false

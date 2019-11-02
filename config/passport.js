@@ -66,6 +66,7 @@ module.exports = function(passport,Student,Teacher) {
         var obj = {
          firstName:req.body.firstName,
          lastName:req.body.lastName,
+         age:req.body.age,
          email: req.body.email,
          password: bcrypt.hashSync(req.body.password, null, null),
          phoneNumber: req.body.phoneNumber,
@@ -88,6 +89,7 @@ module.exports = function(passport,Student,Teacher) {
         model.create({
          firstName:obj.firstName,
          lastName:obj.lastName,
+         age:obj.age,
          email: obj.email,
          password: obj.password,
          image:obj.image,
