@@ -205,14 +205,16 @@ function validateCorrectAnswer()
    var count = countRows();
    for(let row=0;row<count;row++)
    {
-     var answer1,answer2,answer3,answer4,correct; 
+     var answer1,answer2,answer3,answer4,correct,explaination,question; 
      answer1 = document.getElementsByName("answer"+(4*row +1))[0].value;
      answer2 = document.getElementsByName("answer"+(4*row +2))[0].value;
      answer3 = document.getElementsByName("answer"+(4*row +3))[0].value;
      answer4 = document.getElementsByName("answer"+(4*row +4))[0].value;
      correct = document.getElementsByName("correct"+(row+1))[0].value;
-      
-     if( (correct===answer1 || correct===answer2 || correct===answer3 || correct===answer4 ) && (correct !=""))
+     question=document.getElementsByName ("question"+(row+1))[0].value;
+     explaination=document.getElementsByName ("explaination"+(row+1))[0].value;
+
+     if( (correct===answer1 || correct===answer2 || correct===answer3 || correct===answer4 ) && (correct !="") && (question!="") && (explaination!="") )
      {
            continue;
      }
