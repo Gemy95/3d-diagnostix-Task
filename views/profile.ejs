@@ -6,19 +6,18 @@
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
  <title>Quizz Website</title>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- 
+ <link media="all" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
  <div class="container-fluid">
         <% include ./partials/navbar %>
   <div class="row " style="padding: 10px;">
-   <div class="col-12 text-center"><h1>My Profile</h1></div>
+   <div class="col-12 text-center"><h1>My Profile</h1> </div>
   </div>
   <div class="row " style="padding: 10px;">
       <div class="col-12 text-center">
-             <button class="btn btn-primary">Show Published Quizes <i class="fas fa-home"></i></button>  &nbsp;
-             <button class="btn btn-warning">Show Saved Quizes <i class="far fa-save"></i></button>
+             <a class="btn btn-primary" href="/getMyPublishedQuizes/<%=user.ID%>/0">Show Published Quizes </a>  &nbsp;
+             <a class="btn btn-warning">Show Saved Quizes </a> 
        </div>
   </div>
   <div class="row">

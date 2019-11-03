@@ -55,10 +55,49 @@ app.post('/saveQuiz', isLoggedIn, function(req, res){
     )})
     .then((data) => transaction.commit())
     .catch(() => transaction.rollback());
-})
-
+   })
 });
 
+
+app.get("/getMyPublishedQuizes/:id/:page",function(req,res) {
+var teacherID=req.params.id;
+var page=req.params.page;
+var count=0,result="";
+var perPage=4;
+var Offset=perPage*page;
+var data=[];
+
+Quiz.count({
+  raw: true,
+  where:{"isReady":1,"teacherID":teacherID}
+})
+.then(function(count) {
+    count=count;
+    Quiz.findAll({
+      raw: true,
+      offset:Offset, limit:perPage,
+     order: [
+    ['ID', 'ASC']],
+    where:{"teacherID":teacherID}
+    }).then(function (result) {
+      result=result;
+      data["user"]=req.user;
+      data["count"]=count;
+      data["result"]= result;
+      console.log(data);
+      res.render("publishedQuizes.ejs",{
+        data:data
+       });
+    }).catch((err)=>{result=-1})
+}).catch((err)=>{
+  count=-1;
+});
+
+
+})
+
+
+///end of function
 }
 
 

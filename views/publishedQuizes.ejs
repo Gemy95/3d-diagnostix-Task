@@ -1,0 +1,75 @@
+<div class="container-fluid">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                <!-- Brand -->
+                <a class="navbar-brand" href="#">Home</a>
+              
+                <!-- Toggler/collapsibe Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link" href="/profile"> Profile</a>
+                    </li>
+                    <% if(data['user'].type=="teacher") { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addQuiz"> Add Quiz</a>
+                    </li>
+                    <% } %>
+                    <li class="nav-item">
+                      <a href="/logout" class="nav-link">Logout</a>
+                    </li>
+                  </ul>
+                </div>
+        </nav>
+   <br>
+<div class="row">
+  <div class="col-12 text-center"><span style="font-size: 2.5vw;">My Quizes</span></div>
+</div>
+
+<br>
+<div class="row" >
+  <div class="col-12" style="text-align: center;">
+    <div class="col-8 text-center" style="margin: 0 auto;" >
+        <% for (var i = 0 ; i < data['result'].length ; i++) { %>
+            <div class="card">
+                    <h5 class="card-header">Featured</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">Special title treatment</h5>
+                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+            </div>
+            <br>
+         <% } %>  
+    </div>
+  </div>
+</div>
+
+    <div class="d-flex justify-content-center">
+        <nav aria-label="...">
+                <ul class="pagination pagination-lg">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">1</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                </ul>
+              </nav>
+              </div>
+
+<% include ./partials/footer %>
+</div>
+
+
+<script>
+
+</script>
