@@ -3,6 +3,7 @@
 
 <div class="container-fluid">
         <% include ./partials/navbar %>
+        <script type="text/javascript" src="/packages/jquery-3.3.1.js"></script>
         <br><br>
     <div class="row">
         <div class="col-12 text-center">
@@ -11,7 +12,7 @@
     </div>
     <br><br>
     <div class="row">  
-    <form class="form-horizontal" method="POST" action="/addQuiz">   
+    <form class="form-horizontal" id="myForm" method="GET" action="/addQuiz">   
      <div class="col-12 form-group">
         <span style="font-size: 2vw;" >Quiz Name : </span>
         <input type="text" name="quizName" class=" col-2" required /> 
@@ -22,7 +23,8 @@
            <option value="chemistry">chemistry</option>
            <option value="geography">geography</option>
            <option value="english">english</option>
-           <option value="history">english</option>
+           <option value="history">history</option>
+           <option value="science">science</option>
         </select>
      </div>
      <br> 
@@ -47,25 +49,25 @@
                <label>1</label>
             </td>
             <td>
-                <input type="text" name="question1" class="form-control" required />
+                <input type="text" name="question1" class="form-control" minlength="1" required />
             </td>
             <td>
-                <input type="text" name="answer1"  class="form-control" required />
+                <input type="text" name="answer1"  class="form-control" minlength="1" required />
             </td>
             <td>
-                <input type="text" name="answer2"  class="form-control" required />
+                <input type="text" name="answer2"  class="form-control" minlength="1" required />
             </td>
             <td>
-                <input type="text" name="answer3"  class="form-control" required />
+                <input type="text" name="answer3"  class="form-control" minlength="1" required />
             </td>
             <td>
-                <input type="text" name="answer4"  class="form-control" required />
+                <input type="text" name="answer4"  class="form-control" minlength="1" required />
             </td>
             <td>
-                <input type="text" name="correct1"  class="form-control" required />
+                <input type="text" name="correct1"  class="form-control" minlength="1" required />
             </td>
             <td>
-                <input type="text" name="explaination1"  class="form-control" required />
+                <input type="text" name="explaination1"  class="form-control" minlength="1" required />
             </td>
             <td>
                 <a class="deleteRow"></a>
@@ -82,16 +84,17 @@
 </table>
 </div>
 <div class="col-12 text-center" style="padding-top: 10px;"> 
-<button class="btn btn-danger" onclick="validateCorrectAnswer();return false;">Validate</button>
+<!--button class="btn btn-danger"  onclick="validateCorrectAnswer();return false;">Validate</button-->
 &nbsp;
-<button id="publish" class="btn btn-primary" type="submit" onclick="publish_quiz()" disabled>Publish Now</button>
+<button id="publish" class="btn btn-primary" onclick="publish_quiz();return false;">Publish Now</button>
 &nbsp;
 <button class="btn btn-warning">Save</button>
 </div>
 </form>
 </div>
 </div>
-<script>
+
+<script type="text/javascript">
     
 $(document).ready(function () {
     var counter = 1;
@@ -113,7 +116,6 @@ $(document).ready(function () {
         newRow.append(cols);
         $("table.order-list").append(newRow);
         counter++;
-        document.getElementById("publish").disabled=true;
 
     });
 
@@ -123,8 +125,24 @@ $(document).ready(function () {
         counter -= 1
     });
 
-    
+
+$.AddNewQuiz=function (quiz,allQuestions)
+{
+ $.ajax({
+  type: "POST",
+  url: "/addQuiz",
+  data: {"quiz":quiz,"allQuestions":allQuestions},
+  cache: false,
+  success: function(data){
+    alert("amazing success");
+  }
 });
+alert("ajax")
+ }
+
+ 
+});
+///end of jquery
 
 function countRows()
 {
@@ -160,9 +178,21 @@ function publish_quiz()
      };
    }
    quiz={"name":document.getElementsByName('quizName')[0].value,
-   "category":document.getElementsByName('category')[0].value,"isReady":true}
-   console.log(allQuestions);
-   document.getElementById("publish").disabled=true;
+   "category":document.getElementsByName('category')[0].value,"isReady":true
+    }
+   // console.log(allQuestions);
+  // document.getElementById("publish").disabled=true;
+
+  if(validateCorrectAnswer())
+  {
+    //alert("your question published successfully")
+    $.AddNewQuiz(quiz,allQuestions);
+   // document.getElementById("myForm").submit(); 
+  }
+  else if(!validateCorrectAnswer() && !hasEmptyElement(allQuestions) && quiz["name"]!="" && quiz["category"]!="")
+  {
+      alert("sorry something error in validation");
+  }
 }
 
 function validateCorrectAnswer()
@@ -184,13 +214,23 @@ function validateCorrectAnswer()
      }
      else
      {
-         status=false;
+         return false;
      }
    
    }
-  console.log("status="+status);
-  if(status==true)
-  document.getElementById("publish").disabled=false;
+   console.log("status="+status);
+   return true;
+}
+
+function hasEmptyElement(array){
+    for (var row=0; row<array.length; row++){
+       for(var column=0;column<7;column++)
+        if ( array[row][column] == ''){
+          return true; 
+        }
+
+    }
+    return false;
 }
 
 </script>

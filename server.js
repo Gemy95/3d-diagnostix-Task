@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app = express();
-var port = process.env.PORT || 8080;
+
 
 var passport = require('passport');
 var flash = require('connect-flash');
@@ -37,7 +37,7 @@ app.use(express.static(__dirname+'/public'));
 require('./app/loginAndRegisterRoutes.js')(app, passport);
 require('./app/quizRoutes.js')(app, passport);
 
-
+var port = process.env.PORT || 8080;
 app.listen(port,function(){
     console.log("server is listening on Port: " + port)
 });
