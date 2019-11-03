@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function(app,passport,Quiz,Questions,con) {
 
   app.get('/addQuiz', isLoggedIn, function(req, res){
         res.render('addQuiz.ejs', {
@@ -7,11 +7,38 @@ module.exports = function(app) {
     });
 
     app.post('/addQuiz', isLoggedIn, function(req, res){
-      console.log(req.body);
-      res.status(200).json({
-        status:true,
-        "message":"success call"
-      })
+      var quiz= req.body.quiz;
+      var allQuestions=req.body.allQuestions;
+      console.log("quiz name="+req.body.quiz.name);
+      console.log("quiz category="+req.body.quiz.category);
+      console.log("req.user.ID="+req.user.ID);
+      return con.transaction(t => {
+        // chain all your queries here. make sure you return them.
+        return Quiz.create({
+          "name":quiz.name,
+          "category":quiz.category,
+          "isReady":quiz.isReady,
+          "teacherID":req.user.ID
+        }, {transaction: t})
+      
+      }).then(result => {
+        // Transaction has been committed
+        // result is whatever the result of the promise chain returned to the transaction callback
+        console.log("result="+result);
+        res.status(200).json({
+          status:true,
+          "id":result.id,
+          "message":"success added quiz"
+        })
+      }).catch(err => {
+        // Transaction has been rolled back
+        // err is whatever rejected the promise chain returned to the transaction callback
+        console.log("error");
+        res.status(200).json({
+          status:false,
+          "message":"error"
+        })
+      });
     });
 
 }

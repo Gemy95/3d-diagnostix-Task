@@ -1,4 +1,4 @@
-var connection=require("./connection");
+const connection=require("./connection");
 const Sequelize = require("sequelize");
 const Model = Sequelize.Model;
 const con = connection;
@@ -35,7 +35,7 @@ Quiz.init({
   ,
   creationDate: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: true
   }
 
 }
@@ -45,7 +45,6 @@ Quiz.init({
     modelName: 'quize'
   });
 
-
-
+   
 
   module.exports=Quiz;

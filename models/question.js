@@ -1,7 +1,8 @@
-var connection=require("./connection");
+const connection=require("./connection");
 const Sequelize = require("sequelize");
 const Model = Sequelize.Model;
 const con = connection;
+const Quiz=require("./quiz");
 
 class Question extends Model {
    
@@ -60,7 +61,7 @@ Question.init({
     modelName: 'quize'
   });
 
-
-
+  Question.belongsTo(Quiz); 
+  Quiz.hasMany(Question); 
 
   module.exports=Question;
