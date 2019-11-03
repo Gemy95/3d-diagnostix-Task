@@ -66,7 +66,7 @@ Teacher.init({
   });
 
 
-  Teacher.hasMany(Quiz);
-  Quiz.belongsTo(Teacher);
+  //Teacher.hasMany(Quiz);
+  //Quiz.belongsTo(Teacher);
   
   module.exports=Teacher;

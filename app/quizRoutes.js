@@ -1,4 +1,4 @@
-module.exports = function(app,passport,Quiz,Questions,con) {
+module.exports = function(app,passport,Quiz,Question,con) {
 
   app.get('/addQuiz', isLoggedIn, function(req, res){
         res.render('addQuiz.ejs', {
@@ -24,16 +24,15 @@ module.exports = function(app,passport,Quiz,Questions,con) {
       }).then(result => {
         // Transaction has been committed
         // result is whatever the result of the promise chain returned to the transaction callback
-        console.log("result="+result);
         res.status(200).json({
           status:true,
-          "id":result.id,
+          "ID":result.ID,
           "message":"success added quiz"
         })
       }).catch(err => {
         // Transaction has been rolled back
         // err is whatever rejected the promise chain returned to the transaction callback
-        console.log("error");
+        console.log(err);
         res.status(200).json({
           status:false,
           "message":"error"

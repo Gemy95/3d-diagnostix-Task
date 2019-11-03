@@ -104,13 +104,13 @@ $(document).ready(function () {
         var cols = "";
       
         cols += '<td> <label>'+(counter+1)+'</label></td>';
-        cols += '<td><input type="text" class="form-control" name="question' + (counter+1) + '" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +1) + '" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +2) + '" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +3) + '" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +4) + '" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="correct' + (counter+1)+ '" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="explaination' + (counter+1) + '" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="question' + (counter+1) + '" minlength="3" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +1) + '" minlength="3" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +2) + '" minlength="3" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +3) + '" minlength="3" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +4) + '" minlength="3" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="correct' + (counter+1)+ '" minlength="3" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="explaination' + (counter+1) + '" minlength="3" required /></td>';
 
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td>';
         newRow.append(cols);

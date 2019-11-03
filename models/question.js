@@ -61,7 +61,7 @@ Question.init({
     modelName: 'quize'
   });
 
-  Question.belongsTo(Quiz); 
-  Quiz.hasMany(Question); 
+  //Question.belongsTo(Quiz); 
+  //Quiz.hasMany(Question); 
 
   module.exports=Question;
