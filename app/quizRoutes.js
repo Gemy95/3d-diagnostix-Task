@@ -9,36 +9,28 @@ module.exports = function(app,passport,Quiz,Question,con) {
     app.post('/addQuiz', isLoggedIn, function(req, res){
       var quiz= req.body.quiz;
       var allQuestions=req.body.allQuestions;
-      console.log("quiz name="+req.body.quiz.name);
-      console.log("quiz category="+req.body.quiz.category);
-      console.log("req.user.ID="+req.user.ID);
-      return con.transaction(t => {
-        // chain all your queries here. make sure you return them.
-        return Quiz.create({
-          "name":quiz.name,
-          "category":quiz.category,
-          "isReady":quiz.isReady,
-          "teacherID":req.user.ID
-        }, {transaction: t})
-      
-      }).then(result => {
-        // Transaction has been committed
-        // result is whatever the result of the promise chain returned to the transaction callback
-        res.status(200).json({
-          status:true,
-          "ID":result.ID,
-          "message":"success added quiz"
-        })
-      }).catch(err => {
-        // Transaction has been rolled back
-        // err is whatever rejected the promise chain returned to the transaction callback
-        console.log(err);
-        res.status(200).json({
-          status:false,
-          "message":"error"
-        })
-      });
-    });
+
+     con.transaction().then(transaction => {
+      return  Quiz.create({
+        "name":quiz.name,
+        "category":quiz.category,
+        "isReady":quiz.isReady,
+        "teacherID":req.user.ID
+      })
+        .then((result)=>{
+          var quizID=result.ID;
+          for(let i=0;i<allQuestions.length;i++)
+          {
+            allQuestions[i].quizID=quizID;
+          }
+         return Question.bulkCreate(
+             allQuestions, {transaction}
+        )})
+        .then((data) => transaction.commit())
+        .catch(() => transaction.rollback());
+    })
+   
+});
 
 }
 

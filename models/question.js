@@ -2,7 +2,6 @@ const connection=require("./connection");
 const Sequelize = require("sequelize");
 const Model = Sequelize.Model;
 const con = connection;
-const Quiz=require("./quiz");
 
 class Question extends Model {
    
@@ -15,7 +14,8 @@ Question.init({
     autoIncrement: true,
     primaryKey: true
   },
-  answer1: {
+  answer1
+  : {
     type: Sequelize.STRING,
     allowNull: false
   },
@@ -46,7 +46,7 @@ Question.init({
   ,
   creationDate: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: true
   },
   quizID:
   {
@@ -58,7 +58,7 @@ Question.init({
 
 , {
     sequelize:con,
-    modelName: 'quize'
+    modelName: 'question'
   });
 
   //Question.belongsTo(Quiz); 
