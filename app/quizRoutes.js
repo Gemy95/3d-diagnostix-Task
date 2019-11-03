@@ -84,7 +84,7 @@ Quiz.count({
       data["user"]=req.user;
       data["count"]=count;
       data["result"]= result;
-      console.log(data);
+      //console.log(data);
       res.render("publishedQuizes.ejs",{
         data:data
        });
