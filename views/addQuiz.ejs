@@ -3,7 +3,7 @@
 
 <div class="container-fluid">
         <% include ./partials/navbar %>
-        <script type="text/javascript" src="/packages/jquery-3.3.1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <br><br>
     <div class="row">
         <div class="col-12 text-center">
@@ -15,7 +15,7 @@
     <form class="form-horizontal" id="myForm" method="GET" action="/addQuiz">   
      <div class="col-12 form-group">
         <span style="font-size: 2vw;" >Quiz Name : </span>
-        <input type="text" name="quizName" class=" col-2" required /> 
+        <input type="text" name="quizName" class=" col-2" required minlength="3" /> 
         &nbsp;&nbsp;
         <span style="font-size: 2vw;" >Category : </span>
         <select name="category" required>
@@ -49,25 +49,25 @@
                <label>1</label>
             </td>
             <td>
-                <input type="text" name="question1" class="form-control" minlength="1" required />
+                <input type="text" name="question1" class="form-control" minlength="3" required />
             </td>
             <td>
-                <input type="text" name="answer1"  class="form-control" minlength="1" required />
+                <input type="text" name="answer1"  class="form-control" minlength="3" required />
             </td>
             <td>
-                <input type="text" name="answer2"  class="form-control" minlength="1" required />
+                <input type="text" name="answer2"  class="form-control" minlength="3" required />
             </td>
             <td>
-                <input type="text" name="answer3"  class="form-control" minlength="1" required />
+                <input type="text" name="answer3"  class="form-control" minlength="3" required />
             </td>
             <td>
-                <input type="text" name="answer4"  class="form-control" minlength="1" required />
+                <input type="text" name="answer4"  class="form-control" minlength="3" required />
             </td>
             <td>
-                <input type="text" name="correct1"  class="form-control" minlength="1" required />
+                <input type="text" name="correct1"  class="form-control" minlength="3" required />
             </td>
             <td>
-                <input type="text" name="explaination1"  class="form-control" minlength="1" required />
+                <input type="text" name="explaination1"  class="form-control" minlength="3" required />
             </td>
             <td>
                 <a class="deleteRow"></a>
@@ -86,7 +86,7 @@
 <div class="col-12 text-center" style="padding-top: 10px;"> 
 <!--button class="btn btn-danger"  onclick="validateCorrectAnswer();return false;">Validate</button-->
 &nbsp;
-<button id="publish" class="btn btn-primary" onclick="publish_quiz();return false;">Publish Now</button>
+<button id="publish" class="btn btn-primary" onclick="publish_quiz();">Publish Now</button>
 &nbsp;
 <button class="btn btn-warning">Save</button>
 </div>
@@ -177,21 +177,25 @@ function publish_quiz()
          "explaination":explaination
      };
    }
+
    quiz={"name":document.getElementsByName('quizName')[0].value,
    "category":document.getElementsByName('category')[0].value,"isReady":true
     }
    // console.log(allQuestions);
-  // document.getElementById("publish").disabled=true;
 
   if(validateCorrectAnswer())
   {
-    //alert("your question published successfully")
+    alert("your question published successfully")
     $.AddNewQuiz(quiz,allQuestions);
-   // document.getElementById("myForm").submit(); 
+    document.getElementById("myForm").submit(); 
   }
   else if(!validateCorrectAnswer() && !hasEmptyElement(allQuestions) && quiz["name"]!="" && quiz["category"]!="")
   {
       alert("sorry something error in validation");
+  }
+  else
+  {
+    alert("sorry fill all fields");
   }
 }
 
