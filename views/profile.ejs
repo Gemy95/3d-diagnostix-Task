@@ -6,17 +6,21 @@
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
  <title>Quizz Website</title>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- <link rel="stylesheet" 
- href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  
 </head>
 <body>
  <div class="container-fluid">
         <% include ./partials/navbar %>
-  <div class="text-center" style="padding: 10px;">
-   <h1>My Profile</h1>
+  <div class="row " style="padding: 10px;">
+   <div class="col-12 text-center"><h1>My Profile</h1></div>
   </div>
-
+  <div class="row " style="padding: 10px;">
+      <div class="col-12 text-center">
+             <button class="btn btn-primary">Show Published Quizes <i class="fas fa-home"></i></button>  &nbsp;
+             <button class="btn btn-warning">Show Saved Quizes <i class="far fa-save"></i></button>
+       </div>
+  </div>
   <div class="row">
    <div class="col-sm-12">
     <div class="card card-body bg-light">
@@ -29,6 +33,7 @@
       <strong>Email : </strong> <%= user.email %> <br><br>
       <strong>Phone Number : </strong> <%= user.phoneNumber %> <br><br>
       <strong>Address : </strong> <%= user.address %> <br><br>
+      <strong>Gender : </strong> <%= user.gender %> <br><br>
       <strong>Type : </strong> <%= user.type %> <br><br>
      </p>
     </div>

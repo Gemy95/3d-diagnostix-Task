@@ -88,7 +88,7 @@
 &nbsp;
 <button id="publish" class="btn btn-primary" onclick="publish_quiz();">Publish Now</button>
 &nbsp;
-<button class="btn btn-warning">Save</button>
+<button id="save" class="btn btn-warning" onclick="save_quiz();">Save</button>
 </div>
 </form>
 </div>
@@ -137,8 +137,22 @@ $.AddNewQuiz=function (quiz,allQuestions)
     alert("data from server="+data);
   }
 });
+ }
+
+ $.SaveNewQuiz=function (quiz,allQuestions)
+{
+ $.ajax({
+  type: "POST",
+  url: "/saveQuiz",
+  data: {"quiz":quiz,"allQuestions":allQuestions},
+  cache: false,
+  success: function(data){
+    alert("data from server="+data);
+  }
+});
 
  }
+
 
  
 });
@@ -195,7 +209,7 @@ function publish_quiz()
   }
   else
   {
-    alert("sorry fill all fields");
+      alert("sorry fill all fields");
   }
 }
 
@@ -237,6 +251,55 @@ function hasEmptyElement(array){
 
     }
     return false;
+}
+
+
+function save_quiz()
+{
+   var count = countRows();
+   console.log("count="+count);
+   var allQuestions=[];
+   var quiz=[];
+   for(let row=0;row<count;row++)
+   {
+     var question,answer1,answer2,answer3,answer4,correct,explaination; 
+     question = document.getElementsByName("question"+(row+1))[0].value;
+     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value;
+     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value;
+     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value;
+     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value;
+     correct = document.getElementsByName("correct"+(row+1))[0].value;
+     explaination = document.getElementsByName("explaination"+(row+1))[0].value;
+      
+     allQuestions[row]={
+         "question":question,
+         "answer1":answer1,
+         "answer2":answer2,
+         "answer3":answer3,
+         "answer4":answer4,
+         "correct":correct,
+         "explaination":explaination
+     };
+   }
+
+   quiz={"name":document.getElementsByName('quizName')[0].value,
+   "category":document.getElementsByName('category')[0].value,"isReady":false
+    }
+
+  if(validateCorrectAnswer())
+  {
+    alert("your question saved ")
+    $.SaveNewQuiz(quiz,allQuestions);
+    document.getElementById("myForm").submit(); 
+  }
+  else if(!validateCorrectAnswer() && !hasEmptyElement(allQuestions) && quiz["name"]!="" && quiz["category"]!="")
+  {
+      alert("sorry something error in validation");
+  }
+  else
+  {
+    alert("sorry fill all fields");
+  }
 }
 
 </script>

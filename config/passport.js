@@ -71,6 +71,7 @@ module.exports = function(passport,Student,Teacher) {
          password: bcrypt.hashSync(req.body.password, null, null),
          phoneNumber: req.body.phoneNumber,
          address:req.body.address,
+         gender:req.body.gender,
          type:customType
         };
    
@@ -95,6 +96,7 @@ module.exports = function(passport,Student,Teacher) {
          image:obj.image,
          phoneNumber:obj.phoneNumber,
          address:obj.address,
+         gender:obj.gender,
          type : obj.type
         })
         .then((row)=>{
