@@ -41,10 +41,10 @@
     <div class="col-8 text-center" style="margin: 0 auto;" >
         <% for (var i = 0 ; i < data['result'].length ; i++) { %>
             <div class="card">
-                    <h5 class="card-header">Featured</h5>
+                    <h5 class="card-header"><%=data['result'][i]['name']%></h5>
                     <div class="card-body">
-                      <h5 class="card-title">Special title treatment</h5>
-                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                      <h5 class="card-title"><%=data['result'][i]['category']%> Exam</h5>
+                      <p class="card-text">Exam Code: <%=data['result'][i]['code']%></p>
                       <a href="#" class="btn btn-primary">Show Quiz</a>
                     </div>
             </div>
