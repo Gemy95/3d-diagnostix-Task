@@ -15,10 +15,12 @@
    <div class="col-12 text-center"><h1>My Profile</h1> </div>
   </div>
   <div class="row " style="padding: 10px;">
+    <% if(user.type=='teacher') { %>
       <div class="col-12 text-center">
              <a class="btn btn-primary" href="/getMyPublishedQuizes/<%=user.ID%>/0">Show Published Quizes </a>  &nbsp;
              <a class="btn btn-warning">Show Saved Quizes </a> 
        </div>
+     <% } %>
   </div>
   <div class="row">
    <div class="col-sm-12">
