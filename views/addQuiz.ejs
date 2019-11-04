@@ -12,16 +12,16 @@
     </div>
     <br><br>
     <div class="row">  
-    <form class="form-horizontal" id="myForm" onsubmit="event.preventDefault();">   
-     <div class="col-12 form-group">
-        <span style="font-size: 2vw;" >Quiz Name : </span>
+    <form class="form-horizontal col-12" id="myForm" onsubmit="event.preventDefault();">   
+     <div class="d-flex form-group">
+        <span class="col" style="font-size: 2vw;" >Quiz Name : </span>
         <input type="text" name="quizName" class=" col-2" required minlength="3" /> 
         &nbsp;&nbsp;
-        <span style="font-size: 2vw;" >Quiz Code : </span>
-        <input type="text" name="quizCode" class=" col-2" required minlength="3" /> 
+        <span class="col" style="font-size: 2vw;" >Quiz Code : </span>
+        <input class="col" type="text" name="quizCode" class=" col-2" required minlength="3" /> 
         &nbsp;&nbsp;
-        <span style="font-size: 2vw;" >Category : </span>
-        <select name="category" required>
+        <span class="col" style="font-size: 2vw;" >Category : </span>
+        <select class="col" name="category" required>
            <option value="math">math</option>
            <option value="chemistry">chemistry</option>
            <option value="geography">geography</option>
