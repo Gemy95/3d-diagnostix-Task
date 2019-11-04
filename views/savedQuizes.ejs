@@ -31,10 +31,12 @@
             </div>
     </nav>
 <br>
+<div style="min-height: 520px;">
+<% if(data['result'].length>0) { %>
 <div class="row">
-<div class="col-12 text-center"><span style="font-size: 2.5vw;">My Quizes</span></div>
+    <div class="col-12 text-center"><span style="font-size: 2.5vw;">My Quizes</span></div>
 </div>
-
+            
 <br>
 <div class="row" >
 <div class="col-12" style="text-align: center;">
@@ -75,7 +77,12 @@
             </ul>
           </nav>
  </div>
-
+<% } else { %>
+    <div class="row" style="justify-content:center;padding-top: 150px;">
+        <span style="font-size: 2.5vw;">Saved Quizes Not Founded </span>
+    </div>
+   <% } %>
+</div>
 <% include ./partials/footer %>
 </div>
 

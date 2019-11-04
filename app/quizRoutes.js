@@ -215,10 +215,8 @@ app.get("/getMySavedQuizes/:id/:page",isLoggedIn,function(req,res) {
       returning: true,
       where: {"ID":quizID}
   }).then((data)=>{
-    console.log("succedded")
     res.redirect("/getMySavedQuizes/"+teacherID+"/0");
   }).catch((err)=>{
-    console.log(err);
     res.redirect("/getMySavedQuizes/"+teacherID+"/0");
   })
   
