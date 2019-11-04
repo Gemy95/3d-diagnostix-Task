@@ -23,6 +23,11 @@
                 <a class="nav-link" href="/addQuiz"> Add Quiz</a>
             </li>
             <% } %>
+            <% if(user.type=="student") { %>
+            <li class="nav-item">
+                <a class="nav-link" href="/getAllQuizesCategory"> Try Quiz</a>
+            </li>
+            <% } %>
             <li class="nav-item">
               <a href="/logout" class="nav-link">Logout</a>
             </li>

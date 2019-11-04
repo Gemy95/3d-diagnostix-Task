@@ -348,7 +348,17 @@ app.post('/publishFromSavedQuizes/:id', isLoggedIn, function(req, res){
 });
 
 
-
+app.get("/getAllQuizesCategory",isLoggedIn,function (req,res) {
+  var result=[];
+  result["user"]=req.user;
+  Quiz.aggregate('category', 'DISTINCT', { plain: false })
+  .then((data)=> {
+    result["categories"]=data;
+    res.render("quizesCategory",{data:result})
+}).catch((err)=>{
+    res.render("quizesCategory",{data:result})
+});  
+})
 
 ///end of function
 }
