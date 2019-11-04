@@ -360,6 +360,27 @@ app.get("/getAllQuizesCategory",isLoggedIn,function (req,res) {
 });  
 })
 
+
+app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) {
+  var category=req.params.category;
+  var perPage=4;
+  var page=req.params.page;
+  var Offset=perPage*page;
+  var result=[];
+  result["user"]=req.user;
+  Quiz.findAll({
+    row:true,
+    offset:Offset, limit:perPage,
+    where:{"category":category,"isReady":1}
+  })
+  .then((data)=> {
+    result["quizes"]=data;
+    res.render("showQuizes",{data:result})
+}).catch((err)=>{
+    res.render("showQuizes",{data:""})
+});  
+})
+
 ///end of function
 }
 

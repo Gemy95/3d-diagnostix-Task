@@ -26,7 +26,7 @@
                     <% } %>
                     <% if(data['user'].type=="student") { %>
                         <li class="nav-item">
-                            <a class="nav-link" href="/getAllQuizesCategory"> Add Quiz</a>
+                            <a class="nav-link" href="/getAllQuizesCategory"> Try Quiz</a>
                         </li>
                     <% } %>
                     <li class="nav-item">
@@ -39,12 +39,13 @@
 
 <div class="row">  
         <div class="col-12" style="text-align: center;"> 
-            <marquee><span style="font-size: 2.5vw;"> Please Select Quiz Categories ?</span></marquee>
+            <marquee><span style="font-size: 2.5vw;"> Please Select Quiz Category ?</span></marquee>
         </div>  
 </div>
 
  <div class="row justify-content-center">
-   <% for(let i=0; i< data['categories'].length;i++) { %>  
+   <% for(let i=0; i< data['categories'].length;i++) { %> 
+    <a href="/getAllQuizesBYCategory/<%=data['categories'][i].DISTINCT%>/0">
     <div class="col-5" style="margin-top: 50px;">
         <div class="card border-primary mb-3 col">
                 <div class="card-header">Type</div>
@@ -58,8 +59,10 @@
                 </div>
         </div>
      </div>
+   </a>
     <% } %>
  </div>
+ <br>
+ <% include ./partials/footer %>
 </div>
 
-   
