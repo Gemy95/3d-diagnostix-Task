@@ -96,7 +96,7 @@ Quiz.count({
     }).then(function (result) {
       result=result;
       data["user"]=req.user;
-      data["count"]=count;
+      data["count"]=Math.ceil(count/(perPage*1.0));
       data["result"]= result;
       //console.log(data);
       res.render("publishedQuizes.ejs",{
