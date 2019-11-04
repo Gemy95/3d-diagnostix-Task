@@ -214,8 +214,10 @@ function publish_quiz()
             if(!hasRepeatedAnswer(allQuestions))
             {
                 alert("your question published now")
-                $.AddNewQuiz(quiz,allQuestions);
-                document.getElementById("myForm").submit(); 
+                console.log(allQuestions);
+                console.log(hasEmptyElement(allQuestions));
+                //$.AddNewQuiz(quiz,allQuestions);
+                //document.getElementById("myForm").submit(); 
             }
             else
             {
@@ -266,11 +268,17 @@ function validateCorrectAnswer()
 /// check if any question field is empty
 function hasEmptyElement(array){
     for (var row=0; row<array.length; row++){
-       for(var column=0;column<array[row].length;column++)
-        if ( array[row][column] === "" || array[row][column] === undefined ){
+        if ( 
+        array[row]["question"] === "" || array[row]["question"] === undefined 
+        || array[row]["answer1"] === "" || array[row]["answer1"] === undefined 
+        || array[row]["answer2"] === "" || array[row]["answer2"] === undefined 
+        || array[row]["answer3"] === "" || array[row]["answer3"] === undefined 
+        || array[row]["answer4"] === "" || array[row]["answer4"] === undefined
+        || array[row]["correct"] === "" || array[row]["correct"] === undefined  
+        || array[row]["explaination"] === "" || array[row]["explaination"] === undefined 
+        ){
           return true; 
-        }
-    }
+         }
     return false;
 }
 
