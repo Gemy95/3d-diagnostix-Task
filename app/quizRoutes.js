@@ -367,12 +367,19 @@ app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) 
   var page=req.params.page;
   var Offset=perPage*page;
   var result=[];
+
   result["user"]=req.user;
+  Quiz.count({
+    raw: true,
+    where:{"isReady":1,"teacherID":teacherID}
+  })
+  .then((count)=>{
+    result["count"]=count;
   Quiz.findAll({
     row:true,
     offset:Offset, limit:perPage,
     where:{"category":category,"isReady":1}
-  })
+  })})
   .then((data)=> {
     result["quizes"]=data;
     res.render("showQuizes",{data:result})
