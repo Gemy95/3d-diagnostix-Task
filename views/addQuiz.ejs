@@ -214,10 +214,8 @@ function publish_quiz()
             if(!hasRepeatedAnswer(allQuestions))
             {
                 alert("your question published now")
-                console.log(allQuestions);
-                console.log(hasEmptyElement(allQuestions));
-                //$.AddNewQuiz(quiz,allQuestions);
-                //document.getElementById("myForm").submit(); 
+                $.AddNewQuiz(quiz,allQuestions);
+                document.getElementById("myForm").submit(); 
             }
             else
             {
