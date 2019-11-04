@@ -91,7 +91,7 @@ Quiz.count({
       raw: true,
       offset:Offset, limit:perPage,
      order: [
-    ['ID', 'ASC']],
+    ['ID', 'DESC']],
     where:{"teacherID":teacherID,"isReady":1}
     }).then(function (result) {
       result=result;
