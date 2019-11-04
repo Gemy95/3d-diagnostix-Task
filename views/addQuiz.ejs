@@ -161,12 +161,14 @@ $.AddNewQuiz=function (quiz,allQuestions)
 });
 ///end of jquery
 
+/// get count of questions
 function countRows()
 {
     var count = parseInt(document.getElementById("myTable").rows.length)-2;
     return count;
 }
 
+// called when teacher publish his quiz
 function publish_quiz()
 {
    //console.log(document.getElementsByName("quizCode")[0].value);
@@ -197,9 +199,11 @@ function publish_quiz()
      };
    }
 
-   quiz={"name":document.getElementsByName('quizName')[0].value.trim(),
+   quiz={
+   "name":document.getElementsByName('quizName')[0].value.trim(),
    "code":document.getElementsByName('quizCode')[0].value.trim(),
-   "category":document.getElementsByName('category')[0].value.trim(),"isReady":true
+   "category":document.getElementsByName('category')[0].value.trim(),
+   "isReady":true
     }
 
 
@@ -209,14 +213,18 @@ function publish_quiz()
         {           
             if(!hasRepeatedAnswer(allQuestions))
             {
-                alert("your question published now ")
+                alert("your question published now")
                 $.AddNewQuiz(quiz,allQuestions);
                 document.getElementById("myForm").submit(); 
+            }
+            else
+            {
+                alert("sorry you have repeated answer for same question");
             }
         }
         else
         {
-            alert("please fill all fields");
+            alert("please fill all fields of question");
         }
   }
   else
@@ -226,6 +234,7 @@ function publish_quiz()
 
 }
 
+/// validate correct answer compared to 4 answer
 function validateCorrectAnswer()
 {
    var status=true; 
@@ -254,6 +263,7 @@ function validateCorrectAnswer()
    return true;
 }
 
+/// check if any question field is empty
 function hasEmptyElement(array){
     for (var row=0; row<array.length; row++){
        for(var column=0;column<array[row].length;column++)
@@ -264,16 +274,19 @@ function hasEmptyElement(array){
     return false;
 }
 
+// check if there is a repeated answer
 function hasRepeatedAnswer(array)
-{
+{  
     var selected_answer;
     for (var row=0; row<array.length; row++){
        for(var column=1;column<4;column++)
-        { 
-            selected_answer=array[row][column];
+        {   
+            var selected_column="answer"+column;
+            selected_answer=array[row][selected_column];
             for(var next=column+1;next<=4;next++)
-            {
-                if(selected_answer===array[row][next])
+            {  
+                var selected_column2="answer"+next;
+                if(selected_answer===array[row][selected_column2])
                 {
                   return true;
                 }
@@ -283,9 +296,9 @@ function hasRepeatedAnswer(array)
     return false;
 }
 
+/// when save button of quiz is clicked
 function save_quiz()
 {
-   //console.log(document.getElementsByName("quizCode")[0].value);
    var count = countRows();
    //console.log("count="+count);
    var allQuestions=[];
@@ -313,28 +326,37 @@ function save_quiz()
      };
    }
 
-   quiz={"name":document.getElementsByName('quizName')[0].value.trim(),
+   quiz={
+   "name":document.getElementsByName('quizName')[0].value.trim(),
    "code":document.getElementsByName('quizCode')[0].value.trim(),
-   "category":document.getElementsByName('category')[0].value.trim(),"isReady":true
+   "category":document.getElementsByName('category')[0].value.trim(),
+   "isReady":true
     }
 
 
    if(validateCorrectAnswer())
   {
-      if(hasEmptyElement(allQuestions) || quiz["name"]=="" || quiz["code"]=="" || quiz["category"]=="")
-        {
-            alert("please fill all fields")
+      if(!hasEmptyElement(allQuestions) || quiz["name"]!="" || quiz["code"]!="" || quiz["category"]!="")
+        {           
+            if(!hasRepeatedAnswer(allQuestions))
+            {
+                alert("your question saved")
+                $.SaveNewQuiz(quiz,allQuestions);
+                document.getElementById("myForm").submit(); 
+            }
+            else
+            {
+                alert("sorry you have repeated answer for same question");
+            }
         }
         else
         {
-         alert("your question saved")
-         $.SaveNewQuiz(quiz,allQuestions);
-         document.getElementById("myForm").submit(); 
+            alert("please fill all fields of question");
         }
   }
   else
   {
-      alert("sorry something error in validation");
+      alert("sorry your validation is wrong");
   }
 
 }
