@@ -205,20 +205,23 @@ function publish_quiz()
 
    if(validateCorrectAnswer())
   {
-      if(hasEmptyElement(allQuestions) || quiz["name"]=="" || quiz["code"]=="" || quiz["category"]=="")
-        {
-            alert("please fill all fields")
+      if(!hasEmptyElement(allQuestions) || quiz["name"]!="" || quiz["code"]!="" || quiz["category"]!="")
+        {           
+            if(!hasRepeatedAnswer(allQuestions))
+            {
+                alert("your question published now ")
+                $.AddNewQuiz(quiz,allQuestions);
+                document.getElementById("myForm").submit(); 
+            }
         }
         else
         {
-         alert("your question published")
-         $.AddNewQuiz(quiz,allQuestions);
-         document.getElementById("myForm").submit(); 
+            alert("please fill all fields");
         }
   }
   else
   {
-      alert("sorry something error in validation");
+      alert("sorry your validation is wrong");
   }
 
 }
@@ -261,6 +264,24 @@ function hasEmptyElement(array){
     return false;
 }
 
+function hasRepeatedAnswer(array)
+{
+    var selected_answer;
+    for (var row=0; row<array.length; row++){
+       for(var column=1;column<4;column++)
+        { 
+            selected_answer=array[row][column];
+            for(var next=column+1;next<=4;next++)
+            {
+                if(selected_answer===array[row][next])
+                {
+                  return true;
+                }
+            }
+        }
+    }
+    return false;
+}
 
 function save_quiz()
 {
