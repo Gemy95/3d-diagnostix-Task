@@ -267,7 +267,8 @@ function validateCorrectAnswer()
 
 /// check if any question field is empty
 function hasEmptyElement(array){
-    for (var row=0; row<array.length; row++){
+    for (var row=0; row<array.length; row++)
+    {
         if ( 
         array[row]["question"] === "" || array[row]["question"] === undefined 
         || array[row]["answer1"] === "" || array[row]["answer1"] === undefined 
@@ -279,6 +280,7 @@ function hasEmptyElement(array){
         ){
           return true; 
          }
+    }
     return false;
 }
 
