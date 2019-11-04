@@ -12,10 +12,13 @@
     </div>
     <br><br>
     <div class="row">  
-    <form class="form-horizontal" id="myForm" method="GET" action="/addQuiz">   
+    <form class="form-horizontal" id="myForm" onsubmit="event.preventDefault();">   
      <div class="col-12 form-group">
         <span style="font-size: 2vw;" >Quiz Name : </span>
         <input type="text" name="quizName" class=" col-2" required minlength="3" /> 
+        &nbsp;&nbsp;
+        <span style="font-size: 2vw;" >Quiz Code : </span>
+        <input type="text" name="quizCode" class=" col-2" required minlength="3" /> 
         &nbsp;&nbsp;
         <span style="font-size: 2vw;" >Category : </span>
         <select name="category" required>
@@ -86,9 +89,9 @@
 <div class="col-12 text-center" style="padding-top: 10px;"> 
 <!--button class="btn btn-danger"  onclick="validateCorrectAnswer();return false;">Validate</button-->
 &nbsp;
-<button id="publish" class="btn btn-primary" onclick="publish_quiz();return false">Publish Now</button>
+<button id="publish" class="btn btn-primary" onclick="publish_quiz()">Publish Now</button>
 &nbsp;
-<button id="save" class="btn btn-warning" onclick="save_quiz();">Save</button>
+<button id="save" class="btn btn-warning" onclick="save_quiz()">Save</button>
 </div>
 </form>
 </div>
@@ -166,21 +169,23 @@ function countRows()
 
 function publish_quiz()
 {
+   //console.log(document.getElementsByName("quizCode")[0].value);
    var count = countRows();
-   console.log("count="+count);
+   //console.log("count="+count);
    var allQuestions=[];
    var quiz=[];
+   var question,answer1,answer2,answer3,answer4,correct,explaination;
+   
    for(let row=0;row<count;row++)
    {
-     var question,answer1,answer2,answer3,answer4,correct,explaination; 
-     question = document.getElementsByName("question"+(row+1))[0].value;
-     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value;
-     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value;
-     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value;
-     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value;
-     correct = document.getElementsByName("correct"+(row+1))[0].value;
-     explaination = document.getElementsByName("explaination"+(row+1))[0].value;
-      
+     question = document.getElementsByName("question"+(row+1))[0].value.trim();
+     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value.trim();
+     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value.trim();
+     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value.trim();
+     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value.trim();
+     correct = document.getElementsByName("correct"+(row+1))[0].value.trim();
+     explaination = document.getElementsByName("explaination"+(row+1))[0].value.trim();
+
      allQuestions[row]={
          "question":question,
          "answer1":answer1,
@@ -192,25 +197,36 @@ function publish_quiz()
      };
    }
 
-   quiz={"name":document.getElementsByName('quizName')[0].value,
-   "category":document.getElementsByName('category')[0].value,"isReady":true
+   quiz={"name":document.getElementsByName('quizName')[0].value.trim(),
+   "code":document.getElementsByName('quizCode')[0].value.trim(),
+   "category":document.getElementsByName('category')[0].value.trim(),"isReady":true
     }
+
    // console.log(allQuestions);
 
-  if(validateCorrectAnswer())
+   if(validateCorrectAnswer())
   {
-    alert("your question published successfully")
-    $.AddNewQuiz(quiz,allQuestions);
-    document.getElementById("myForm").submit(); 
-  }
-  else if(!validateCorrectAnswer() && !hasEmptyElement(allQuestions) && quiz["name"]!="" && quiz["category"]!="")
-  {
-      alert("sorry something error in validation");
+      console.log(hasEmptyElement(allQuestions))
+      console.log(quiz["name"]=="");
+      console.log(quiz["code"]=="");
+      console.log(quiz["category"]=="");
+
+      if(hasEmptyElement(allQuestions) || quiz["name"]=="" || quiz["code"]=="" || quiz["category"]=="")
+        {
+            alert("please fill all fields")
+        }
+        else
+        {
+         alert("your question published")
+         $.AddNewQuiz(quiz,allQuestions);
+         document.getElementById("myForm").submit(); 
+        }
   }
   else
   {
-      alert("sorry fill all fields");
+      alert("sorry something error in validation");
   }
+
 }
 
 function validateCorrectAnswer()
@@ -220,15 +236,15 @@ function validateCorrectAnswer()
    for(let row=0;row<count;row++)
    {
      var answer1,answer2,answer3,answer4,correct,explaination,question; 
-     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value;
-     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value;
-     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value;
-     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value;
-     correct = document.getElementsByName("correct"+(row+1))[0].value;
-     question=document.getElementsByName ("question"+(row+1))[0].value;
-     explaination=document.getElementsByName ("explaination"+(row+1))[0].value;
+     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value.trim();
+     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value.trim();
+     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value.trim();
+     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value.trim();
+     correct = document.getElementsByName("correct"+(row+1))[0].value.trim();
+     //question=document.getElementsByName ("question"+(row+1))[0].value.trim();
+     //explaination=document.getElementsByName("explaination"+(row+1))[0].value.trim();
 
-     if( (correct===answer1 || correct===answer2 || correct===answer3 || correct===answer4 ) && (correct !="") && (question!="") && (explaination!="") )
+     if( (correct===answer1 || correct===answer2 || correct===answer3 || correct===answer4 ) && (correct !="") )
      {
            continue;
      }
@@ -243,12 +259,13 @@ function validateCorrectAnswer()
 }
 
 function hasEmptyElement(array){
+    console.log(array);
     for (var row=0; row<array.length; row++){
-       for(var column=0;column<7;column++)
-        if ( array[row][column] == ''){
+       for(var column=0;column<array[row].length;column++)
+        if ( array[row][column] === "" || array[row][column] === undefined ){
+            console.log("row="+row+" and column="+column);
           return true; 
         }
-
     }
     return false;
 }
@@ -257,20 +274,20 @@ function hasEmptyElement(array){
 function save_quiz()
 {
    var count = countRows();
-   console.log("count="+count);
    var allQuestions=[];
    var quiz=[];
+   var question,answer1,answer2,answer3,answer4,correct,explaination;
+   
    for(let row=0;row<count;row++)
    {
-     var question,answer1,answer2,answer3,answer4,correct,explaination; 
-     question = document.getElementsByName("question"+(row+1))[0].value;
-     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value;
-     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value;
-     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value;
-     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value;
-     correct = document.getElementsByName("correct"+(row+1))[0].value;
-     explaination = document.getElementsByName("explaination"+(row+1))[0].value;
-      
+     question = document.getElementsByName("question"+(row+1))[0].value.trim();
+     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value.trim();
+     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value.trim();
+     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value.trim();
+     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value.trim();
+     correct = document.getElementsByName("correct"+(row+1))[0].value.trim();
+     explaination = document.getElementsByName("explaination"+(row+1))[0].value.trim();
+
      allQuestions[row]={
          "question":question,
          "answer1":answer1,
@@ -282,24 +299,32 @@ function save_quiz()
      };
    }
 
-   quiz={"name":document.getElementsByName('quizName')[0].value,
-   "category":document.getElementsByName('category')[0].value,"isReady":false
+   quiz={"name":document.getElementsByName('quizName')[0].value.trim(),
+   "code":document.getElementsByName('quizCode')[0].value.trim(),
+   "category":document.getElementsByName('category')[0].value.trim(),"isReady":true
     }
 
-  if(validateCorrectAnswer())
+   // console.log(allQuestions);
+
+   if(validateCorrectAnswer())
   {
-    alert("your question saved ")
-    $.SaveNewQuiz(quiz,allQuestions);
-    document.getElementById("myForm").submit(); 
-  }
-  else if(!validateCorrectAnswer() && !hasEmptyElement(allQuestions) && quiz["name"]!="" && quiz["category"]!="")
-  {
-      alert("sorry something error in validation");
+      if(hasEmptyElement(allQuestions) || quiz["name"]=="" || quiz["code"]=="" || quiz["category"]=="")
+        {
+            alert("please fill all fields")
+        }
+        else
+        {
+         alert("your question published")
+         $.SaveNewQuiz(quiz,allQuestions);
+         document.getElementById("myForm").submit(); 
+        }
   }
   else
   {
-    alert("sorry fill all fields");
+      alert("sorry something error in validation");
   }
+ 
 }
+
 
 </script>

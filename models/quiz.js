@@ -23,6 +23,12 @@ Quiz.init({
     allowNull: false
   }
   ,
+  code: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+  
+  ,
   teacherID: {
     type: Sequelize.INTEGER,
     allowNull: false

@@ -13,6 +13,7 @@ module.exports = function(app,passport,Quiz,Question,con) {
      con.transaction().then(transaction => {
       return  Quiz.create({
         "name":quiz.name,
+        "code":quiz.code,
         "category":quiz.category,
         "isReady":quiz.isReady,
         "teacherID":req.user.ID
@@ -40,6 +41,7 @@ app.post('/saveQuiz', isLoggedIn, function(req, res){
  con.transaction().then(transaction => {
   return  Quiz.create({
     "name":quiz.name,
+    "code":quiz.code,
     "category":quiz.category,
     "isReady":quiz.isReady,
     "teacherID":req.user.ID
