@@ -126,14 +126,14 @@ app.get("/getSingleQuiz/:id",function(req,res) {
       }, {transaction})
       })
       .then((data2) => {
-        console.log("success")
+        //console.log("success")
         result["questions"]=data2;
         result["user"]=req.user;
         transaction.commit()
         res.render("showSingleQuiz",{data:result});
       })
       .catch(() => {
-        console.log("error")
+        //console.log("error")
         transaction.rollback();
         res.render("showSingleQuiz",{data:""});
       });
