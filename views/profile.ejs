@@ -18,7 +18,7 @@
     <% if(user.type=='teacher') { %>
       <div class="col-12 text-center">
              <a class="btn btn-primary" href="/getMyPublishedQuizes/<%=user.ID%>/0">Show Published Quizes </a>  &nbsp;
-             <a class="btn btn-warning">Show Saved Quizes </a> 
+             <a class="btn btn-warning" href="getMySavedQuizes/<%=user.ID%>/0">Show Saved Quizes </a> 
        </div>
      <% } %>
   </div>

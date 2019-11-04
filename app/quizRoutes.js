@@ -73,7 +73,7 @@ app.post('/saveQuiz', isLoggedIn, function(req, res){
 });
 
 
-app.get("/getMyPublishedQuizes/:id/:page",function(req,res) {
+app.get("/getMyPublishedQuizes/:id/:page", isLoggedIn,function(req,res) {
 var teacherID=req.params.id;
 var page=req.params.page;
 var count=0,result="";
@@ -110,7 +110,7 @@ Quiz.count({
 })
 
 
-app.get("/getSingleQuiz/:id",function(req,res) {
+app.get("/getSingleQuiz/:id", isLoggedIn,function(req,res) {
   var quizID=req.params.id;
   var result=[];
   con.transaction().then(transaction => {
@@ -140,6 +140,83 @@ app.get("/getSingleQuiz/:id",function(req,res) {
   })
 })
 
+
+app.get("/getMySavedQuizes/:id/:page",isLoggedIn,function(req,res) {
+  var teacherID=req.params.id;
+  var page=req.params.page;
+  var count=0,result="";
+  var perPage=4;
+  var Offset=perPage*page;
+  var data=[];
+  
+  Quiz.count({
+    raw: true,
+    where:{"isReady":0,"teacherID":teacherID}
+  })
+  .then(function(count) {
+      count=count;
+      Quiz.findAll({
+        raw: true,
+        offset:Offset, limit:perPage,
+       order: [
+      ['ID', 'ASC']],
+      where:{"teacherID":teacherID}
+      }).then(function (result) {
+        result=result;
+        data["user"]=req.user;
+        data["count"]=Math.ceil(count/(perPage*1.0));
+        data["result"]= result;
+        //console.log(data);
+        res.render("savedQuizes.ejs",{
+          data:data
+         });
+      }).catch((err)=>{result=-1})
+  }).catch((err)=>{
+    count=-1;
+  });
+  
+ })
+
+ 
+ app.get("/deleteSingleQuiz/:quzid/:teacherid",isLoggedIn,function(req,res) {
+  var quizID=req.params.quzid;
+  var teacherID=req.params.teacherid;
+
+  return con.transaction().then(function (t) {
+     Question.destroy({
+      where: {
+         quizID: quizID 
+      }
+     }
+     , {transaction: t}).then(function (user) {
+      return  Quiz.destroy({
+        where: {
+           ID: quizID 
+        }
+       }, {transction: t});
+    }).then(function () {
+      t.commit();
+      res.redirect("/getMySavedQuizes/"+teacherID+"/0");
+    }).catch(function (err) {
+      t.rollback();
+      res.redirect("/getMySavedQuizes/"+teacherID+"/0");
+    });
+  });
+
+  /*
+ 
+   Quiz.destroy({
+    where: {
+       ID: quizID 
+    }
+ }).then((data)=>{
+  
+ }).catch((err)=>{
+  
+ })
+ */
+ })
+  
 
 ///end of function
 }
