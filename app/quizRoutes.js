@@ -160,7 +160,7 @@ app.get("/getMySavedQuizes/:id/:page",isLoggedIn,function(req,res) {
         offset:Offset, limit:perPage,
        order: [
       ['ID', 'ASC']],
-      where:{"teacherID":teacherID}
+      where:{"teacherID":teacherID,"isReady":0}
       }).then(function (result) {
         result=result;
         data["user"]=req.user;
@@ -203,20 +203,27 @@ app.get("/getMySavedQuizes/:id/:page",isLoggedIn,function(req,res) {
     });
   });
 
-  /*
- 
-   Quiz.destroy({
-    where: {
-       ID: quizID 
-    }
- }).then((data)=>{
-  
- }).catch((err)=>{
-  
- })
- */
  })
   
+
+ app.get("/publishFromSavedQuizes/:quizid/:teacherid",function (req,res) {
+  var quizID=req.params.quizid;
+  var teacherID=req.params.teacherid;
+
+  Quiz.update({
+    "isReady":1},{
+      returning: true,
+      where: {"ID":quizID}
+  }).then((data)=>{
+    console.log("succedded")
+    res.redirect("/getMySavedQuizes/"+teacherID+"/0");
+  }).catch((err)=>{
+    console.log(err);
+    res.redirect("/getMySavedQuizes/"+teacherID+"/0");
+  })
+  
+ });
+
 
 ///end of function
 }

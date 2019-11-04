@@ -47,7 +47,7 @@
                   <p class="card-text">Exam Code: <%=data['result'][i]['code']%></p>
                   <a href="/getSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-warning">Edit Quiz</a>
                      &nbsp;
-                  <a href="/publishSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-primary">Publish Quiz</a>
+                  <a href="/publishFromSavedQuizes/<%=data['result'][i]['ID']%>/<%=data['user'].ID%>" class="btn btn-primary">Publish Quiz</a>
                   &nbsp;
                   <a href="/deleteSingleQuiz/<%=data['result'][i]['ID']%>/<%=data['user'].ID%>" class="btn btn-danger">Delete Quiz</a>
                   &nbsp;
@@ -67,10 +67,10 @@
               <% for( let i=0;i< data['count'] ;i++)  { %>
               <% if(i==0) { %>
               <li class="page-item">
-                <a class="page-link" href="/getMyPublishedQuizes/<%=data['user'].ID%>/<%=i%>" >1</a>
+                <a class="page-link" href="/getMySavedQuizes/<%=data['user'].ID%>/<%=i%>" >1</a>
               </li>
               <% } else { %>
-              <li class="page-item"><a class="page-link" href="/getMyPublishedQuizes/<%=data['user'].ID%>/<%=i%>"><%=i+1%></a></li>
+              <li class="page-item"><a class="page-link" href="/getMySavedQuizes/<%=data['user'].ID%>/<%=i%>"><%=i+1%></a></li>
               <% } } %>
             </ul>
           </nav>
