@@ -209,7 +209,7 @@ function publish_quiz()
 
    if(validateCorrectAnswer())
   {
-      if(!hasEmptyElement(allQuestions) || quiz["name"]!="" || quiz["code"]!="" || quiz["category"]!="")
+      if(!hasEmptyElement(allQuestions) && quiz["name"]!="" && quiz["code"]!="" && quiz["category"]!="")
         {           
             if(!hasRepeatedAnswer(allQuestions))
             {
@@ -336,8 +336,9 @@ function save_quiz()
 
    if(validateCorrectAnswer())
   {
-      if(!hasEmptyElement(allQuestions) || quiz["name"]!="" || quiz["code"]!="" || quiz["category"]!="")
-        {           
+      if(!hasEmptyElement(allQuestions) && quiz["name"]!="" && quiz["code"]!="" && quiz["category"]!="")
+        {       
+            console.log(hasEmptyElement(allQuestions));    
             if(!hasRepeatedAnswer(allQuestions))
             {
                 alert("your question saved")
