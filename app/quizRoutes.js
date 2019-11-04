@@ -27,8 +27,20 @@ module.exports = function(app,passport,Quiz,Question,con) {
          return Question.bulkCreate(
              allQuestions, {transaction}
         )})
-        .then((data) => transaction.commit())
-        .catch(() => transaction.rollback());
+        .then(() => {
+          transaction.commit();
+         res.status(200).json({
+           status:true,
+           message:"added successfully"
+         })
+        })
+        .catch(() => {
+          transaction.rollback();
+          res.status(200).json({
+            status:false,
+            message:"added failed"
+          })
+        });
     })
    
 });
@@ -55,7 +67,7 @@ app.post('/saveQuiz', isLoggedIn, function(req, res){
      return Question.bulkCreate(
          allQuestions, {transaction}
     )})
-    .then((data) => transaction.commit())
+    .then(() => transaction.commit())
     .catch(() => transaction.rollback());
    })
 });

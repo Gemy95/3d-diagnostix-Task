@@ -133,9 +133,9 @@ $.AddNewQuiz=function (quiz,allQuestions)
 {
  $.ajax({
   type: "POST",
-  url: "/addQuiz",
+  url: "/saveQuiz",
   data: {"quiz":quiz,"allQuestions":allQuestions},
-  cache: false,
+  dataType: 'json',
   success: function(data){
     alert("data from server="+data);
   }
@@ -148,7 +148,7 @@ $.AddNewQuiz=function (quiz,allQuestions)
   type: "POST",
   url: "/saveQuiz",
   data: {"quiz":quiz,"allQuestions":allQuestions},
-  cache: false,
+  dataType: 'json',
   success: function(data){
     alert("data from server="+data);
   }
