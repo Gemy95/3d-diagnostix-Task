@@ -354,8 +354,11 @@ app.get("/getAllQuizesCategory",isLoggedIn,function (req,res) {
   Quiz.aggregate('category', 'DISTINCT', { plain: false })
   .then((data)=> {
     result["categories"]=data;
+    result["status"]=true;
+    console.log("categories="+JSON.stringify(data));
     res.render("quizesCategory",{data:result})
 }).catch((err)=>{
+    result["status"]=false;
     res.render("quizesCategory",{data:result})
 });  
 })
@@ -367,22 +370,26 @@ app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) 
   var page=req.params.page;
   var Offset=perPage*page;
   var result=[];
-
   result["user"]=req.user;
-  Quiz.count({
-    raw: true,
-    where:{"isReady":1,"category":category}
-  })
-  .then((count)=>{
-    result["count"]=count;
-  Quiz.findAll({
-    row:true,
-    offset:Offset, limit:perPage,
-    where:{"category":category,"isReady":1}
-  })})
+
+  console.log("category="+category);
+
+   Quiz.findAll({
+     row:true,
+     offset:Offset,limit:perPage,
+     where:{"isReady":1,"category":category}
+   })
   .then((data)=> {
     result["quizes"]=data;
-    res.render("showQuizes",{data:result})
+      Quiz.count({
+       row:true,
+       where:{"isReady":1,"category":category}
+      }).then((count)=>{
+        result["count"]=count;
+        res.render("showQuizes",{data:result})
+      }).catch((err)=>{
+        res.render("showQuizes",{data:""})
+      })
 }).catch((err)=>{
     res.render("showQuizes",{data:""})
 });  

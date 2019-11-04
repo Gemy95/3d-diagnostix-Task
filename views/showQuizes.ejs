@@ -42,7 +42,7 @@
                     <div class="card-body">
                       <h5 class="card-title"><%=data['quizes'][i]['category']%> Exam</h5>
                       <p class="card-text">Exam Code: <%=data['quizes'][i]['code']%></p>
-                      <a href="#" class="btn btn-success">Show Quiz</a>
+                      <a href="#" class="btn btn-success">Start Quiz</a>
                     </div>
             </div>
             <br>
@@ -58,10 +58,10 @@
                   <% for( let i=0;i< data['count'] ;i++)  { %>
                   <% if(i==0) { %>
                   <li class="page-item">
-                    <a class="page-link" href="/getAllQuizesBYCategory/<%=data['quizes'][i]['category']%>/<%=i+1%>" >1</a>
+                    <a class="page-link" href="/getAllQuizesBYCategory/<%=data['quizes'][i]['category']%>/<%=i%>" >1</a>
                   </li>
                   <% } else { %>
-                  <li class="page-item"><a class="page-link" href="/getAllQuizesBYCategory/<%=data['quizes'][i]['category']%>/<%=i+1%>"><%=i+1%></a></li>
+                  <li class="page-item"><a class="page-link" href="/getAllQuizesBYCategory/<%=data['quizes'][i]['category']%>/<%=i%>"><%=i%></a></li>
                   <% } } %>
                 </ul>
               </nav>
