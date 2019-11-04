@@ -14,8 +14,13 @@ Question.init({
     autoIncrement: true,
     primaryKey: true
   },
-  answer1
-  : {
+  question:
+   {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  answer1:
+   {
     type: Sequelize.STRING,
     allowNull: false
   },

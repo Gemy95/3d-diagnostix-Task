@@ -33,26 +33,50 @@
    <br>
 
 <div class="row">  
-        <div class="col-12" style="text-align: center;"> <span style="font-size: 2vw;">Quiz Details</span> </div> 
+    <div class="col-12">
+ <div class="card card-body bg-light">
+        <div style="text-align: center;"> 
+            <span style="font-size: 2.5vw;">Quiz Details</span>
+        </div> 
+        
+   <div>
+        <span style="font-size: 1.7vw;padding-top: 20px;"> Name : </span><span style="font-size:1.5vw;"><%=data['quiz'].name%></span> 
         <br>
-   <div class="col-12">
-        <span style="font-size: 1.7vw;">Quiz Name : </span><span style="font-size:1.5vw;"><%=data['quiz'].name%></span> 
+        <span style="font-size: 1.7vw;padding-top: 20px;"> Code : </span><span style="font-size:1.5vw;"><%=data['quiz'].code%></span> 
         <br>
-        <span style="font-size: 1.7vw;">Quiz Code : </span><span style="font-size:1.5vw;"><%=data['quiz'].code%></span> 
+        <span style="font-size: 1.7vw;padding-top: 20px;"> Category : </span><span style="font-size:1.5vw;"><%=data['quiz'].category%></span> 
         <br>
-        <span style="font-size: 1.7vw;">Quiz Category : </span><span style="font-size:1.5vw;"><%=data['quiz'].category%></span> 
-  </div>
+        <span style="font-size: 1.7vw;padding-top: 20px;"> Is Ready : </span>
+        <span style="font-size:1.5vw;">
+            <% if(data['quiz'].isReady == 1) { %>
+               published
+            <% } else { %>
+                saved  
+            <% } %>   
+        </span> 
 </div>
+
    <br>
-<div class="row">
+   <span style="font-size: 2vw;"> Questions : </span>
+   <br>
    <% for(let i=0;i< data['questions'].length;i++) { %>
-   <div class="col-12">
-     
+   <div class="">
+     <span> <%=(i+1)%> .</span><span> <%=data['questions'][i].question%> </span>
+     <br>
+     <span>a. <%=data['questions'][i].answer1%> </span>
+     <br>
+     <span>b. <%=data['questions'][i].answer2%></span>
+     <br>
+     <span>c. <%=data['questions'][i].answer3%></span>
+     <br>
+     <span>d. <%=data['questions'][i].answer4%></span>
+     <br>
    </div>
    <br>
    <% } %>
+ </div>
+ </div>
 </div>
-
    </div>
 
    
