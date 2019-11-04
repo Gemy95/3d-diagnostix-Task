@@ -107,7 +107,37 @@ Quiz.count({
   count=-1;
 });
 
+})
 
+
+app.get("/getSingleQuiz/:id",function(req,res) {
+  var quizID=req.params.id;
+  var result=[];
+  con.transaction().then(transaction => {
+    return Quiz.findOne({
+      raw: true,
+      where:{"ID":quizID}
+    }, {transaction})
+      .then((data)=>{
+       result["quiz"]=data;
+       return Question.findAll({
+        raw: true,
+        where:{"quizID":quizID}
+      }, {transaction})
+      })
+      .then((data2) => {
+        console.log("success")
+        result["questions"]=data2;
+        result["user"]=req.user;
+        transaction.commit()
+        res.render("showSingleQuiz",{data:result});
+      })
+      .catch(() => {
+        console.log("error")
+        transaction.rollback();
+        res.render("showSingleQuiz",{data:""});
+      });
+  })
 })
 
 
