@@ -371,7 +371,7 @@ app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) 
   result["user"]=req.user;
   Quiz.count({
     raw: true,
-    where:{"isReady":1,"teacherID":teacherID}
+    where:{"isReady":1,"category":category}
   })
   .then((count)=>{
     result["count"]=count;
