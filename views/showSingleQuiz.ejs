@@ -1,3 +1,8 @@
+<style>
+.answer{
+    font-size: 1.2vw;
+}
+</style>
 <div class="container-fluid">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -38,38 +43,44 @@
         <div style="text-align: center;"> 
             <span style="font-size: 2.5vw;">Quiz Details</span>
         </div> 
-        
-   <div>
-        <span style="font-size: 1.7vw;padding-top: 20px;"> Name : </span><span style="font-size:1.5vw;"><%=data['quiz'].name%></span> 
         <br>
-        <span style="font-size: 1.7vw;padding-top: 20px;"> Code : </span><span style="font-size:1.5vw;"><%=data['quiz'].code%></span> 
-        <br>
-        <span style="font-size: 1.7vw;padding-top: 20px;"> Category : </span><span style="font-size:1.5vw;"><%=data['quiz'].category%></span> 
-        <br>
-        <span style="font-size: 1.7vw;padding-top: 20px;"> Is Ready : </span>
-        <span style="font-size:1.5vw;">
-            <% if(data['quiz'].isReady == 1) { %>
-               published
-            <% } else { %>
-                saved  
-            <% } %>   
-        </span> 
-</div>
-
-   <br>
+    <div class="card border-primary mb-5">
+           <div class="card-header">#</div>
+            <div class="card-body text-primary">
+              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Name : </span><span style="font-size:1.5vw;"><%=data['quiz'].name%></span> 
+              <br>
+              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Code : </span><span style="font-size:1.5vw;"><%=data['quiz'].code%></span> 
+              <br>
+              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Category : </span><span style="font-size:1.5vw;"><%=data['quiz'].category%></span> 
+              <br>
+              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Is Ready : </span>
+              <span style="font-size:1.5vw;" class="card-text">
+                  <% if(data['quiz'].isReady == 1) { %>
+                     published
+                  <% } else { %>
+                      saved  
+                  <% } %>   
+              </span> 
+            </div>
+        </div>
+<hr>
    <span style="font-size: 2vw;"> Questions : </span>
    <br>
    <% for(let i=0;i< data['questions'].length;i++) { %>
    <div class="">
-     <span> <%=(i+1)%> .</span><span> <%=data['questions'][i].question%> </span>
+     <span style="font-size: 1.5vw;"><%=(i+1)%> . <%=data['questions'][i].question%> </span>
      <br>
-     <span>a. <%=data['questions'][i].answer1%> </span>
+     <span class="answer">a. <%=data['questions'][i].answer1%> </span>
      <br>
-     <span>b. <%=data['questions'][i].answer2%></span>
+     <span class="answer">b. <%=data['questions'][i].answer2%></span>
      <br>
-     <span>c. <%=data['questions'][i].answer3%></span>
+     <span class="answer">c. <%=data['questions'][i].answer3%></span>
      <br>
-     <span>d. <%=data['questions'][i].answer4%></span>
+     <span class="answer">d. <%=data['questions'][i].answer4%></span>
+     <br>
+     <span class="answer">Correct Answer : <%=data['questions'][i].correct%></span>
+     <br>
+     <span class="answer">Explaination <%=data['questions'][i].explaination%></span>
      <br>
    </div>
    <br>
