@@ -47,8 +47,8 @@
                 <div class="card-body">
                   <h5 class="card-title"><%=data['result'][i]['category']%> Exam</h5>
                   <p class="card-text">Exam Code: <%=data['result'][i]['code']%></p>
-                  <a href="/getSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-warning">Edit Quiz</a>
-                     &nbsp;
+                  <a href="/getToUpdateFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-warning">Edit Quiz</a>
+                  &nbsp;
                   <a href="/publishFromSavedQuizes/<%=data['result'][i]['ID']%>/<%=data['user'].ID%>" class="btn btn-primary">Publish Quiz</a>
                   &nbsp;
                   <a href="/deleteSingleQuiz/<%=data['result'][i]['ID']%>/<%=data['user'].ID%>" class="btn btn-danger">Delete Quiz</a>

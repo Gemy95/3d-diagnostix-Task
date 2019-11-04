@@ -137,7 +137,7 @@ $.AddNewQuiz=function (quiz,allQuestions)
 {
  $.ajax({
   type: "POST",
-  url: "/saveQuiz",
+  url: "/addQuiz",
   data: {"quiz":quiz,"allQuestions":allQuestions},
   dataType: 'json',
   success: function(data){

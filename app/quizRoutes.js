@@ -223,6 +223,133 @@ app.get("/getMySavedQuizes/:id/:page",isLoggedIn,function(req,res) {
  });
 
 
+
+ app.get("/getToUpdateFromSavedQuizes/:id", isLoggedIn,function(req,res) {
+  var quizID=req.params.id;
+  var result=[];
+  con.transaction().then(transaction => {
+    return Quiz.findOne({
+      raw: true,
+      where:{"ID":quizID}
+    }, {transaction})
+      .then((data)=>{
+       result["quiz"]=data;
+       return Question.findAll({
+        raw: true,
+        where:{"quizID":quizID}
+      }, {transaction})
+      })
+      .then((data2) => {
+        //console.log("success")
+        result["questions"]=data2;
+        result["user"]=req.user;
+        transaction.commit()
+        res.render("editSavedQuiz",{data:result});
+      })
+      .catch(() => {
+        //console.log("error")
+        transaction.rollback();
+        res.render("editSavedQuiz",{data:""});
+      });
+  })
+})
+
+
+app.post('/UpdateFromSavedQuizes/:id', isLoggedIn, function(req, res){
+  var quiz= req.body.quiz;
+  var allQuestions=req.body.allQuestions;
+  var quizID=req.params.id;
+
+ con.transaction().then(transaction => {
+  return Quiz.update({
+    "name":quiz.name,
+    "code":quiz.code,
+    "category":quiz.category,
+    "isReady":0
+    } ,{
+    returning: true,
+    where: {"ID":quizID} 
+    }, {transaction})
+    .then((result)=>{
+   return Question.destroy({
+      where:{"quizID":quizID}
+    }, {transaction})  
+    })
+    .then((result)=>{
+      for(let i=0;i<allQuestions.length;i++)
+      {
+        allQuestions[i].quizID=quizID;
+      }
+     return Question.bulkCreate(
+         allQuestions, {transaction}
+    )})
+    .then(() => { 
+      transaction.commit();
+      //console.log("success")
+    res.redirect("/getToUpdateFromSavedQuizes/"+quizID);
+    })
+    .catch(() =>{ 
+      transaction.rollback();
+      //console.log("failed");
+      res.redirect("/getToUpdateFromSavedQuizes/"+quizID);
+    });
+   })
+});
+
+
+
+app.post('/publishFromSavedQuizes/:id', isLoggedIn, function(req, res){
+  var quiz= req.body.quiz;
+  var allQuestions=req.body.allQuestions;
+  var quizID=req.params.id;
+
+ con.transaction().then(transaction => {
+  return Quiz.update({
+    "name":quiz.name,
+    "code":quiz.code,
+    "category":quiz.category,
+    "isReady":1
+    } ,{
+    returning: true,
+    where: {"ID":quizID} 
+    }, {transaction})
+    .then((result)=>{
+   return Question.destroy({
+      where:{"quizID":quizID}
+    }, {transaction})  
+    })
+    .then((result)=>{
+      for(let i=0;i<allQuestions.length;i++)
+      {
+        allQuestions[i].quizID=quizID;
+      }
+     return Question.bulkCreate(
+         allQuestions, {transaction}
+    )})
+    .then(() => { 
+      transaction.commit();
+      //console.log("success")
+    //res.redirect("/getToUpdateFromSavedQuizes/"+quizID);
+    res.status(200).json({
+      status:true,
+      message:"success"
+    })
+    })
+    .catch(() =>{ 
+      transaction.rollback();
+      //console.log("failed");
+      //res.redirect("/getToUpdateFromSavedQuizes/"+quizID);
+      res.status(200).json({
+        status:false,
+        message:"failed"
+      })
+    });
+   })
+});
+
+
+
+
 ///end of function
 }
 

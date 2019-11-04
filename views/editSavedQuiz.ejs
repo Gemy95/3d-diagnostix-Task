@@ -1,0 +1,411 @@
+
+<!------ Include the above in your HEAD tag ---------->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<div class="container-fluid">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                <a class="navbar-brand" href="#">Home</a>           
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                  <span class="navbar-toggler-icon"></span>
+                </button>       
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link" href="/profile"> Profile</a>
+                    </li>
+                    <% if(data['user'].type=="teacher") { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addQuiz"> Add Quiz</a>
+                    </li>
+                    <% } %>
+                    <li class="nav-item">
+                      <a href="/logout" class="nav-link">Logout</a>
+                    </li>
+                  </ul>
+                </div>
+        </nav>
+   <br>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <br><br>
+    <div class="row">
+        <div class="col-12 text-center">
+        <span style="font-size: 3vw;">Edit OR Publish Your Quick Quiz Now</span>
+        </div> 
+    </div>
+    <br><br>
+    <div class="row">  
+    <form class="form-horizontal col-12" id="myForm" onsubmit="event.preventDefault();">   
+     <div class="d-flex ">
+        <div class=" col">
+        <span  style="font-size: 2vw;" >Quiz Name:</span>
+        <input type="text" name="quizName" value="<%=data['quiz']['name']%>" class="form-control"  required minlength="3" /> 
+        </div>
+        <div class=" col">
+        <span  style="font-size: 2vw;" >Quiz Code:</span>
+        <input class="form-control" type="text" name="quizCode" value="<%=data['quiz']['code']%>" required minlength="3" /> 
+        </div>
+        <div class=" col">
+        <span  style="font-size: 2vw;" >Category:</span>
+        <select class="form-control" name="category" value="<%=data['quiz']['category']%>" required>
+           <option value="math">math</option>
+           <option value="chemistry">chemistry</option>
+           <option value="geography">geography</option>
+           <option value="english">english</option>
+           <option value="history">history</option>
+           <option value="science">science</option>
+        </select>
+        </div>
+     </div>
+     <br> 
+    <div class="col-sm-12 table-responsive">
+    <table id="myTable" class="table order-list text-center">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Question</th>
+            <th>Answer1</th>
+            <th>Answer2</th>
+            <th>Answer3</th>
+            <th>Answer4</th>
+            <th>Correct</th>
+            <th>Explaination</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for(let i=0;i< data['questions'].length;i++) { %>
+        <tr>
+            <td>
+               <label><%=(i+1)%></label>
+            </td>
+            <td>
+                <input type="text" name="question<%=(i+1)%>" value="<%=data['questions'][i]['question']%>" class="form-control" minlength="3" required />
+            </td>
+            <td>
+                <input type="text" name="answer<%=((i*2)+1)%>" value="<%=data['questions'][i]['answer1']%>"  class="form-control" minlength="1" required />
+            </td>
+            <td>
+                <input type="text" name="answer<%=((i*2)+2)%>" value="<%=data['questions'][i]['answer2']%>"  class="form-control" minlength="1" required />
+            </td>
+            <td>
+                <input type="text" name="answer<%=((i*2)+3)%>" value="<%=data['questions'][i]['answer3']%>"  class="form-control" minlength="1" required />
+            </td>
+            <td>
+                <input type="text" name="answer<%=((i*2)+4)%>" value="<%=data['questions'][i]['answer4']%>"  class="form-control" minlength="1" required />
+            </td>
+            <td>
+                <input type="text" name="correct<%=(i+1)%>" value="<%=data['questions'][i]['correct']%>"  class="form-control" minlength="1" required />
+            </td>
+            <td>
+                <input type="text" name="explaination<%=(i+1)%>" value="<%=data['questions'][i]['explaination']%>"  class="form-control" minlength="3" required />
+            </td>
+            <td>
+                <a class="deleteRow"></a>
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="12" style="text-align: left;">
+                <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Question" />
+            </td>
+        </tr>
+    </tfoot>
+</table>
+</div>
+<div class="col-12 text-center" style="padding-top: 10px;"> 
+<!--button class="btn btn-danger"  onclick="validateCorrectAnswer();return false;">Validate</button-->
+&nbsp;
+<button id="publish" class="btn btn-primary" onclick="publish_quiz()">Publish Now</button>
+&nbsp;
+<button id="save" class="btn btn-warning" onclick="save_quiz()">Save</button>
+</div>
+</form>
+</div>
+</div>
+
+<script type="text/javascript">
+    
+$(document).ready(function () {
+    var counter = 1;
+
+    $("#addrow").on("click", function () {
+        var newRow = $("<tr>");
+        var cols = "";
+      
+        cols += '<td> <label>'+(counter+1)+'</label></td>';
+        cols += '<td><input type="text" class="form-control" name="question' + (counter+1) + '" minlength="3" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +1) + '" minlength="1" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +2) + '" minlength="1" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +3) + '" minlength="1" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +4) + '" minlength="1" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="correct' + (counter+1)+ '" minlength="1" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="explaination' + (counter+1) + '" minlength="3" required /></td>';
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td>';
+        newRow.append(cols);
+        $("table.order-list").append(newRow);
+        counter++;
+
+    });
+
+
+    $("table.order-list").on("click", ".ibtnDel", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+
+
+$.AddNewQuiz=function (quiz,allQuestions)
+{
+ $.ajax({
+  type: "POST",
+  url: "/publishFromSavedQuizes/<%=data['quiz']['ID']%>",
+  data: {"quiz":quiz,"allQuestions":allQuestions},
+  dataType: 'json',
+  success: function(data){
+    window.location.assign("/getMyPublishedQuizes/<%=data['quiz']['teacherID']%>/0");
+  }
+}).then((data)=>{
+
+});
+
+ }
+
+ $.SaveNewQuiz=function (quiz,allQuestions)
+{
+ $.ajax({
+  type: "POST",
+  url: "/UpdateFromSavedQuizes/<%=data['quiz']['ID']%>",
+  data: {"quiz":quiz,"allQuestions":allQuestions},
+  dataType: 'json',
+  success: function(data){
+    alert("data from server="+data);
+    window.location.reload();
+  }
+}).then((data)=>{
+    window.location.reload();
+});
+
+ }
+
+
+ 
+});
+///end of jquery
+
+/// get count of questions
+function countRows()
+{
+    var count = parseInt(document.getElementById("myTable").rows.length)-2;
+    return count;
+}
+
+// called when teacher publish his quiz
+function publish_quiz()
+{  
+   //console.log(document.getElementsByName("quizCode")[0].value);
+   var count = countRows();
+   //console.log("count="+count);
+   var allQuestions=[];
+   var quiz=[];
+   var question,answer1,answer2,answer3,answer4,correct,explaination;
+   
+   for(let row=0;row<count;row++)
+   {
+     question = document.getElementsByName("question"+(row+1))[0].value.trim();
+     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value.trim();
+     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value.trim();
+     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value.trim();
+     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value.trim();
+     correct = document.getElementsByName("correct"+(row+1))[0].value.trim();
+     explaination = document.getElementsByName("explaination"+(row+1))[0].value.trim();
+
+     allQuestions[row]={
+         "question":question,
+         "answer1":answer1,
+         "answer2":answer2,
+         "answer3":answer3,
+         "answer4":answer4,
+         "correct":correct,
+         "explaination":explaination
+     };
+   }
+
+   quiz={
+   "name":document.getElementsByName('quizName')[0].value.trim(),
+   "code":document.getElementsByName('quizCode')[0].value.trim(),
+   "category":document.getElementsByName('category')[0].value.trim(),
+   "isReady":true
+    }
+
+
+   if(validateCorrectAnswer())
+  {
+      if(!hasEmptyElement(allQuestions) && quiz["name"]!="" && quiz["code"]!="" && quiz["category"]!="")
+        {           
+            if(!hasRepeatedAnswer(allQuestions))
+            {
+                alert("your question published now")
+                $.AddNewQuiz(quiz,allQuestions);
+                //document.getElementById("myForm").submit(); 
+                console.log("published clicked");
+            }
+            else
+            {
+                alert("sorry you have repeated answer for same question");
+            }
+        }
+        else
+        {
+            alert("please fill all fields of question");
+        }
+  }
+  else
+  {
+      alert("sorry your validation is wrong");
+  }
+
+}
+
+/// validate correct answer compared to 4 answer
+function validateCorrectAnswer()
+{
+   var status=true; 
+   var count = countRows();
+   for(let row=0;row<count;row++)
+   {
+     var answer1,answer2,answer3,answer4,correct,explaination,question; 
+     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value.trim();
+     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value.trim();
+     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value.trim();
+     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value.trim();
+     correct = document.getElementsByName("correct"+(row+1))[0].value.trim();
+     //question=document.getElementsByName ("question"+(row+1))[0].value.trim();
+     //explaination=document.getElementsByName("explaination"+(row+1))[0].value.trim();
+
+     if( (correct===answer1 || correct===answer2 || correct===answer3 || correct===answer4 ) && (correct !="") )
+     {
+           continue;
+     }
+     else
+     {
+         return false;
+     }
+   
+   }
+   return true;
+}
+
+/// check if any question field is empty
+function hasEmptyElement(array){
+    for (var row=0; row<array.length; row++)
+    {
+        if ( 
+        array[row]["question"] === "" || array[row]["question"] === undefined 
+        || array[row]["answer1"] === "" || array[row]["answer1"] === undefined 
+        || array[row]["answer2"] === "" || array[row]["answer2"] === undefined 
+        || array[row]["answer3"] === "" || array[row]["answer3"] === undefined 
+        || array[row]["answer4"] === "" || array[row]["answer4"] === undefined
+        || array[row]["correct"] === "" || array[row]["correct"] === undefined  
+        || array[row]["explaination"] === "" || array[row]["explaination"] === undefined 
+        ){
+          return true; 
+         }
+    }
+    return false;
+}
+
+// check if there is a repeated answer
+function hasRepeatedAnswer(array)
+{  
+    var selected_answer;
+    for (var row=0; row<array.length; row++){
+       for(var column=1;column<4;column++)
+        {   
+            var selected_column="answer"+column;
+            selected_answer=array[row][selected_column];
+            for(var next=column+1;next<=4;next++)
+            {  
+                var selected_column2="answer"+next;
+                if(selected_answer===array[row][selected_column2])
+                {
+                  return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+/// when save button of quiz is clicked
+function save_quiz()
+{
+   var count = countRows();
+   //console.log("count="+count);
+   var allQuestions=[];
+   var quiz=[];
+   var question,answer1,answer2,answer3,answer4,correct,explaination;
+   
+   for(let row=0;row<count;row++)
+   {
+     question = document.getElementsByName("question"+(row+1))[0].value.trim();
+     answer1 = document.getElementsByName("answer"+(4*row +1))[0].value.trim();
+     answer2 = document.getElementsByName("answer"+(4*row +2))[0].value.trim();
+     answer3 = document.getElementsByName("answer"+(4*row +3))[0].value.trim();
+     answer4 = document.getElementsByName("answer"+(4*row +4))[0].value.trim();
+     correct = document.getElementsByName("correct"+(row+1))[0].value.trim();
+     explaination = document.getElementsByName("explaination"+(row+1))[0].value.trim();
+
+     allQuestions[row]={
+         "question":question,
+         "answer1":answer1,
+         "answer2":answer2,
+         "answer3":answer3,
+         "answer4":answer4,
+         "correct":correct,
+         "explaination":explaination
+     };
+   }
+
+   quiz={
+   "name":document.getElementsByName('quizName')[0].value.trim(),
+   "code":document.getElementsByName('quizCode')[0].value.trim(),
+   "category":document.getElementsByName('category')[0].value.trim(),
+   "isReady":true
+    }
+
+
+   if(validateCorrectAnswer())
+  {
+      if(!hasEmptyElement(allQuestions) && quiz["name"]!="" && quiz["code"]!="" && quiz["category"]!="")
+        {         
+            if(!hasRepeatedAnswer(allQuestions))
+            {
+                alert("your question saved")
+                $.SaveNewQuiz(quiz,allQuestions);
+                //document.getElementById("myForm").submit(); 
+            }
+            else
+            {
+                alert("sorry you have repeated answer for same question");
+            }
+        }
+        else
+        {
+            alert("please fill all fields of question");
+        }
+  }
+  else
+  {
+      alert("sorry your validation is wrong");
+  }
+
+}
+
+
+</script>
