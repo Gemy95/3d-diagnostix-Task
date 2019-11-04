@@ -55,19 +55,19 @@
                 <input type="text" name="question1" class="form-control" minlength="3" required />
             </td>
             <td>
-                <input type="text" name="answer1"  class="form-control" minlength="3" required />
+                <input type="text" name="answer1"  class="form-control" minlength="1" required />
             </td>
             <td>
-                <input type="text" name="answer2"  class="form-control" minlength="3" required />
+                <input type="text" name="answer2"  class="form-control" minlength="1" required />
             </td>
             <td>
-                <input type="text" name="answer3"  class="form-control" minlength="3" required />
+                <input type="text" name="answer3"  class="form-control" minlength="1" required />
             </td>
             <td>
-                <input type="text" name="answer4"  class="form-control" minlength="3" required />
+                <input type="text" name="answer4"  class="form-control" minlength="1" required />
             </td>
             <td>
-                <input type="text" name="correct1"  class="form-control" minlength="3" required />
+                <input type="text" name="correct1"  class="form-control" minlength="1" required />
             </td>
             <td>
                 <input type="text" name="explaination1"  class="form-control" minlength="3" required />
@@ -108,11 +108,11 @@ $(document).ready(function () {
       
         cols += '<td> <label>'+(counter+1)+'</label></td>';
         cols += '<td><input type="text" class="form-control" name="question' + (counter+1) + '" minlength="3" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +1) + '" minlength="3" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +2) + '" minlength="3" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +3) + '" minlength="3" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +4) + '" minlength="3" required /></td>';
-        cols += '<td><input type="text" class="form-control" name="correct' + (counter+1)+ '" minlength="3" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +1) + '" minlength="1" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +2) + '" minlength="1" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +3) + '" minlength="1" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="answer' + ((counter*4) +4) + '" minlength="1" required /></td>';
+        cols += '<td><input type="text" class="form-control" name="correct' + (counter+1)+ '" minlength="1" required /></td>';
         cols += '<td><input type="text" class="form-control" name="explaination' + (counter+1) + '" minlength="3" required /></td>';
 
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td>';
@@ -202,15 +202,9 @@ function publish_quiz()
    "category":document.getElementsByName('category')[0].value.trim(),"isReady":true
     }
 
-   // console.log(allQuestions);
 
    if(validateCorrectAnswer())
   {
-      console.log(hasEmptyElement(allQuestions))
-      console.log(quiz["name"]=="");
-      console.log(quiz["code"]=="");
-      console.log(quiz["category"]=="");
-
       if(hasEmptyElement(allQuestions) || quiz["name"]=="" || quiz["code"]=="" || quiz["category"]=="")
         {
             alert("please fill all fields")
@@ -254,16 +248,13 @@ function validateCorrectAnswer()
      }
    
    }
-   console.log("status="+status);
    return true;
 }
 
 function hasEmptyElement(array){
-    console.log(array);
     for (var row=0; row<array.length; row++){
        for(var column=0;column<array[row].length;column++)
         if ( array[row][column] === "" || array[row][column] === undefined ){
-            console.log("row="+row+" and column="+column);
           return true; 
         }
     }
@@ -273,7 +264,9 @@ function hasEmptyElement(array){
 
 function save_quiz()
 {
+   //console.log(document.getElementsByName("quizCode")[0].value);
    var count = countRows();
+   //console.log("count="+count);
    var allQuestions=[];
    var quiz=[];
    var question,answer1,answer2,answer3,answer4,correct,explaination;
@@ -304,7 +297,6 @@ function save_quiz()
    "category":document.getElementsByName('category')[0].value.trim(),"isReady":true
     }
 
-   // console.log(allQuestions);
 
    if(validateCorrectAnswer())
   {
@@ -314,7 +306,7 @@ function save_quiz()
         }
         else
         {
-         alert("your question published")
+         alert("your question saved")
          $.SaveNewQuiz(quiz,allQuestions);
          document.getElementById("myForm").submit(); 
         }
@@ -323,7 +315,7 @@ function save_quiz()
   {
       alert("sorry something error in validation");
   }
- 
+
 }
 
 
