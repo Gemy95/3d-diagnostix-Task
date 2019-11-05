@@ -442,7 +442,9 @@ app.post("/getStudentResult/:id",function(req,res){
   var incorrectedAnswer=0;
   result["user"]=req.user;
   var percentage=0;
-  
+  //var spentTime=req.body.spentTime;
+  //console.log("spentTime="+spentTime);
+
   for(let [index,value] of Object.values(responses).entries()){
     result[count]=value;
     count++;

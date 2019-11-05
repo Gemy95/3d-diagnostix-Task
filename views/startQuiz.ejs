@@ -91,6 +91,7 @@
    </div>
    <br>
    <% } %>
+   <!--input type="text" name="spentTime" hidden /--> 
    <div>
     <button class="btn btn-success" type="submit">Show Quiz Result</button>
   </div>
@@ -115,5 +116,6 @@ function countTimer() {
    var seconds = totalSeconds - (hour*3600 + minute*60);
 
    document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+   //document.getElementsByName("spentTime")[0].value=hour + ":" + minute + ":" + seconds ;
 }
 </script>
