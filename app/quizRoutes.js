@@ -394,7 +394,7 @@ app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) 
        row:true,
        where:{"isReady":1,"category":category}
       }).then((count)=>{
-        result["count"]=count;
+        result["count"]=Math.ceil((count/4.0));
         res.render("showQuizes",{data:result})
       }).catch((err)=>{
         res.render("showQuizes",{data:""})

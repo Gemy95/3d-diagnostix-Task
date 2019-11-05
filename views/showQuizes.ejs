@@ -37,13 +37,8 @@
         <nav aria-label="...">
                 <ul class="pagination pagination-lg">
                   <% for( let i=0;i< data['count'] ;i++)  { %>
-                  <% if(i==0) { %>
-                  <li class="page-item">
-                    <a class="page-link" href="/getAllQuizesBYCategory/<%=data['quizes'][i]['category']%>/<%=i%>" >1</a>
-                  </li>
-                  <% } else { %>
-                  <li class="page-item"><a class="page-link" href="/getAllQuizesBYCategory/<%=data['quizes'][i]['category']%>/<%=i%>"><%=i%></a></li>
-                  <% } } %>
+                  <li class="page-item"><a class="page-link" href="/getAllQuizesBYCategory/<%=data['quizes'][i]['category']%>/<%=i%>"><%=(i+1)%></a></li>
+                  <% }  %>
                 </ul>
               </nav>
      </div>
@@ -55,8 +50,7 @@
     </div>
     <% include ./partials/footer %>
     </div>
-    
-    
+    <%=data['count']%>
     <script>
     
     </script>

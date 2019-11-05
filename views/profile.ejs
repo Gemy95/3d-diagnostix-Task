@@ -21,6 +21,12 @@
              <a class="btn btn-warning" href="/getMySavedQuizes/0">Show Saved Quizes </a> 
        </div>
      <% } %>
+     <% if(data['user'].type=='student') { %>
+      <div class="col-12 text-center">
+             <a class="btn btn-primary"  href="/getAllQuizesCategory"> Try Quizes</a>
+       </div>
+     <% } %>
+     
   </div>
   <div class="row">
    <div class="col-sm-12">
