@@ -46,10 +46,10 @@
               <% for( let i=0;i< data['count'] ;i++)  { %>
               <% if(i==0) { %>
               <li class="page-item">
-                <a class="page-link" href="/getMySavedQuizes/<%=data['user'].ID%>/<%=i%>" >1</a>
+                <a class="page-link" href="/getMySavedQuizes/<%=i%>" >1</a>
               </li>
               <% } else { %>
-              <li class="page-item"><a class="page-link" href="/getMySavedQuizes/<%=data['user'].ID%>/<%=i%>"><%=i+1%></a></li>
+              <li class="page-item"><a class="page-link" href="/getMySavedQuizes/<%=i%>"><%=i+1%></a></li>
               <% } } %>
             </ul>
           </nav>
