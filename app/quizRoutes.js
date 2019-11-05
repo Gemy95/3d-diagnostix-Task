@@ -214,18 +214,18 @@ app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
  })
   
 
- app.get("/publishFromSavedQuizes/:quizid/:teacherid",function (req,res) {
+ app.get("/publishFromSavedQuizes/:quizid",function (req,res) {
   var quizID=req.params.quizid;
-  var teacherID=req.params.teacherid;
+  var teacherID=req.user.ID;
 
   Quiz.update({
     "isReady":1},{
       returning: true,
       where: {"ID":quizID}
   }).then((data)=>{
-    res.redirect("/getMySavedQuizes/"+teacherID+"/0");
+    res.redirect("/getMySavedQuizes/0");
   }).catch((err)=>{
-    res.redirect("/getMySavedQuizes/"+teacherID+"/0");
+    res.redirect("/getMySavedQuizes/0");
   })
   
  });
@@ -306,7 +306,7 @@ app.post('/UpdateFromSavedQuizes/:id', isLoggedIn, function(req, res){
 
 
 
-app.post('/publishFromSavedQuizes/:id', isLoggedIn, function(req, res){
+app.post('/publishFromEditSavedQuizes/:id', isLoggedIn, function(req, res){
   var quiz= req.body.quiz;
   var allQuestions=req.body.allQuestions;
   var quizID=req.params.id;
