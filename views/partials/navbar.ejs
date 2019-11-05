@@ -16,9 +16,19 @@
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
           <ul class="navbar-nav">
+              <% if( data['user'].type == undefined) { %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login"> Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup"> Register</a>
+                  </li>
+                <% } %>
+              <% if( data['user'].type=="student" || data['user'].type=="teacher") { %>
             <li class="nav-item">
               <a class="nav-link" href="/profile"> Profile</a>
             </li>
+            <% } %>
             <% if(data['user'].type=="teacher") { %>
             <li class="nav-item">
                 <a class="nav-link" href="/addQuiz"> Add Quiz</a>
@@ -29,9 +39,11 @@
                 <a class="nav-link" href="/getAllQuizesCategory"> Try Quiz</a>
             </li>
             <% } %>
+            <% if( data['user'].type=="student" || data['user'].type=="teacher") { %>
             <li class="nav-item">
               <a href="/logout" class="nav-link">Logout</a>
             </li>
+            <% } %>
           </ul>
         </div>
 </nav>

@@ -1,6 +1,6 @@
 module.exports = function(app, passport) {
  app.get('/', function(req, res){
-  res.render('index.ejs');
+  res.render('index.ejs',{data:{"user":[]}});
  });
 
  app.get('/login', function(req, res){
