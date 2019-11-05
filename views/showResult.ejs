@@ -11,9 +11,40 @@
 <div class="container-fluid">
         <% include ./partials/navbar %>
 <br><br>
-<div class="row justify-content-center" >
-<div class="col-12">
-  
+<div class="row">
+<div class="col-12 text-center">
+  <span style="font-size: 3vw;">Quiz Result</span>
 </div>
 </div>
+<br><br>
+<div class="row">
+       <div class="col text-center">
+           <div style="background-color: blue;padding: 30px;">
+            <br>
+                <span style="font-size: 2vw;">persentage : </span>
+                <br>
+                <span style="font-size: 2vw;"><%=data['output'].percentage%> %</span>
+                <br>
+           </div>
+       </div>
+       <div class="col text-center">1</div>
+       <div class="col text-center">
+            <div style="background-color: red;padding: 30px;">
+                    <br>
+                        <span style="font-size: 2vw;">incorrect Answer : </span>
+                        <br>
+                        <span style="font-size: 2vw;"><%=data['output'].incorrectedCount%></span>
+                        <br>
+             </div>
+             <br>
+             <div style="background-color: green;padding: 30px;">
+                    <br>
+                        <span style="font-size: 2vw;">Correct Answers : </span>
+                        <br>
+                        <span style="font-size: 2vw;"><%=data['output'].correctedCount%></span>
+                        <br>
+             </div>
+       </div>      
+</div>
+
 </div>

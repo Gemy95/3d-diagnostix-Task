@@ -439,7 +439,7 @@ var responses=req.body;
 var result=[];
 var count=0;
 var correctedAnswer=0;
-var failedAnswer=0;
+var incorrectedAnswer=0;
 result["user"]=req.user;
 var percentage=0;
 
@@ -460,12 +460,13 @@ Question.findAll({
      }
      else
      {
-       failedAnswer++;
+      incorrectedAnswer++;
      }
   }
+  
+  percentage=(incorrectedAnswer/(correctedAnswer+incorrectedAnswer))*(100.0);
 
-  percentage=(correctedAnswer+failedAnswer)/(100.0);
-  result["output"]={"correctedCount":correctedAnswer,"faildedCount":failedAnswer,"percentage":percentage}
+  result["output"]={"correctedCount":correctedAnswer,"incorrectedCount":incorrectedAnswer,"percentage":percentage}
   result["status"]=true;
   res.render("showResult",{data:result});
 }).catch((err)=>{
