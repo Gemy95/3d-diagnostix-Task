@@ -440,21 +440,22 @@ app.post("/getStudentResult/:id",function(req,res){
   var count=0;
   var correctedAnswer=0;
   var incorrectedAnswer=0;
-  result["user"]=req.user;
   var percentage=0;
-  //var spentTime=req.body.spentTime;
-  //console.log("spentTime="+spentTime);
+  var spentTime=req.body.spentTime;
 
   for(let [index,value] of Object.values(responses).entries()){
     result[count]=value;
     count++;
+    
   }
   
+  
+  result["user"]=req.user;
   Question.findAll({
     row:true,
     where:{"quizID":quizID}
   }).then((data)=>{
-    for(let j=0;j<result.length;j++)
+    for(let j=0;j<result.length-1;j++)
     {
        if(data[j]['correct']==result[j])
        {
@@ -468,7 +469,7 @@ app.post("/getStudentResult/:id",function(req,res){
   
     percentage=(correctedAnswer/(correctedAnswer+incorrectedAnswer))*(100.0);
   
-    result["output"]={"correctedCount":correctedAnswer,"incorrectedCount":incorrectedAnswer,"percentage":percentage}
+    result["output"]={"correctedCount":correctedAnswer,"incorrectedCount":incorrectedAnswer,"percentage":percentage,"spentTime":spentTime}
     result["status"]=true;
     res.render("showResult",{data:result});
   }).catch((err)=>{
