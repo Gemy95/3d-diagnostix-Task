@@ -75,8 +75,8 @@ app.post('/saveQuiz', isLoggedIn, function(req, res){
 });
 
 
-app.get("/getMyPublishedQuizes/:id/:page", isLoggedIn,function(req,res) {
-var teacherID=req.params.id;
+app.get("/getMyPublishedQuizes/:page", isLoggedIn,function(req,res) {
+var teacherID=req.user.ID;
 var page=req.params.page;
 var count=0,result="";
 var perPage=4;
@@ -143,8 +143,8 @@ app.get("/getSingleQuiz/:id", isLoggedIn,function(req,res) {
 })
 
 
-app.get("/getMySavedQuizes/:id/:page",isLoggedIn,function(req,res) {
-  var teacherID=req.params.id;
+app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
+  var teacherID=req.user.ID;
   var page=req.params.page;
   var count=0,result="";
   var perPage=4;
