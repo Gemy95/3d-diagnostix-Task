@@ -19,17 +19,19 @@
     <% for (var i = 0 ; i < data['result'].length ; i++) { %>
         <div class="card">
                 <h5 class="card-header"><%=data['result'][i]['name']%></h5>
-                <div class="card-body">
+            <div class="card-body">
                   <h5 class="card-title"><%=data['result'][i]['category']%> Exam</h5>
                   <p class="card-text">Exam Code: <%=data['result'][i]['code']%></p>
-                  <a href="/getToUpdateFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-warning">Edit Quiz</a>
+                <div class="d-flex justify-content-center">
+                  <div class=""> <a href="/getToUpdateFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-warning btn-sm btn-block" style="font-size: 1vw;">Edit Quiz</a></div>
                   &nbsp;
-                  <a href="/publishFromSavedQuizes/<%=data['result'][i]['ID']%>/<%=data['user'].ID%>" class="btn btn-primary">Publish Quiz</a>
+                  <div class=""><a href="/publishFromSavedQuizes/<%=data['result'][i]['ID']%>/<%=data['user'].ID%>" class="btn btn-primary btn-sm btn-block" style="font-size: 1vw;">Publish Quiz</a></div>
                   &nbsp;
-                  <a href="/deleteSingleQuiz/<%=data['result'][i]['ID']%>/<%=data['user'].ID%>" class="btn btn-danger">Delete Quiz</a>
+                  <div class=""> <a href="/deleteSingleQuiz/<%=data['result'][i]['ID']%>/<%=data['user'].ID%>" class="btn btn-danger btn-sm btn-block" style="font-size: 1vw;">Delete Quiz</a></div>
                   &nbsp;
-                  <a href="/getSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-success">Show Quiz</a>
+                  <div class=""><a href="/getSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-success  btn-sm btn-block" style="font-size: 1vw;">Show Quiz</a></div>
                 </div>
+            </div>
         </div>
         <br>
      <% } %>  
