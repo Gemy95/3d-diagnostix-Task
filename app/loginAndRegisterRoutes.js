@@ -1,7 +1,10 @@
 module.exports = function(app, passport) {
  app.get('/', function(req, res){
     var result = [];
+    if(req.user!=null || req.user!=undefined)
     result["user"]=req.user;
+    else
+    result["user"]=""
   res.render('index.ejs',{data:result});
  });
 

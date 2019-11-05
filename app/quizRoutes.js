@@ -57,7 +57,7 @@ app.post('/saveQuiz', isLoggedIn, function(req, res){
     "name":quiz.name,
     "code":quiz.code,
     "category":quiz.category,
-    "isReady":quiz.isReady,
+    "isReady":0,
     "teacherID":req.user.ID
   })
     .then((result)=>{
@@ -119,7 +119,7 @@ app.get("/getSingleQuiz/:id", isLoggedIn,function(req,res) {
   con.transaction().then(transaction => {
     return Quiz.findOne({
       raw: true,
-      where:{"ID":quizID}
+      where:{"ID":quizID,"teacherID":req.user.ID}
     }, {transaction})
       .then((data)=>{
        result["quiz"]=data;
@@ -186,9 +186,9 @@ app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
  })
 
  
- app.get("/deleteSingleQuiz/:quzid/:teacherid",isLoggedIn,function(req,res) {
+ app.get("/deleteSingleQuiz/:quzid",isLoggedIn,function(req,res) {
   var quizID=req.params.quzid;
-  var teacherID=req.params.teacherid;
+  var teacherID=req.user.ID;
 
   return con.transaction().then(function (t) {
      Question.destroy({
@@ -199,15 +199,15 @@ app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
      , {transaction: t}).then(function (user) {
       return  Quiz.destroy({
         where: {
-           ID: quizID 
+           "ID": quizID ,"teacherID":teacherID
         }
        }, {transction: t});
     }).then(function () {
       t.commit();
-      res.redirect("/getMySavedQuizes/"+teacherID+"/0");
+      res.redirect("/getMySavedQuizes/0");
     }).catch(function (err) {
       t.rollback();
-      res.redirect("/getMySavedQuizes/"+teacherID+"/0");
+      res.redirect("/getMySavedQuizes/0");
     });
   });
 
@@ -239,7 +239,7 @@ app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
   con.transaction().then(transaction => {
     return Quiz.findOne({
       raw: true,
-      where:{"ID":quizID}
+      where:{"ID":quizID,"teacherID":req.user.ID}
     }, {transaction})
       .then((data)=>{
        result["quiz"]=data;
@@ -316,7 +316,8 @@ app.post('/publishFromSavedQuizes/:id', isLoggedIn, function(req, res){
     "name":quiz.name,
     "code":quiz.code,
     "category":quiz.category,
-    "isReady":1
+    "isReady":1,
+    where:{"teacherID":req.user.ID}
     } ,{
     returning: true,
     where: {"ID":quizID} 
