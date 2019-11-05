@@ -33,6 +33,10 @@
             </div>
         </div>
 <hr>
+<div class="d-flex flex-row-reverse">
+    <div id="timer" style="font-size: 2vw;"></div>
+</div>
+<br>
    <span style="font-size: 2vw;"> Questions : </span>
    <form method="POST" action="/getStudentResult/<%=data['quiz'].ID%>">
    <br>
@@ -100,7 +104,16 @@
     <span style="font-size: 2.5vw;"> Quize Not Founded </span>
 </div>
 <% } %>
-
 </div>
+<script>
+var timerVar = setInterval(countTimer, 1000);
+var totalSeconds = 0;
+function countTimer() {
+   ++totalSeconds;
+   var hour = Math.floor(totalSeconds /3600);
+   var minute = Math.floor((totalSeconds - hour*3600)/60);
+   var seconds = totalSeconds - (hour*3600 + minute*60);
 
-   
+   document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+}
+</script>

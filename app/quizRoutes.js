@@ -434,47 +434,47 @@ Quiz.findOne({
 
 
 app.post("/getStudentResult/:id",function(req,res){
-var quizID=req.params.id;
-var responses=req.body;
-var result=[];
-var count=0;
-var correctedAnswer=0;
-var incorrectedAnswer=0;
-result["user"]=req.user;
-var percentage=0;
-
-for(let [index,value] of Object.values(responses).entries()){
-  result[count]=value;
-  count++;
-}
-
-Question.findAll({
-  row:true,
-  where:{"quizID":quizID}
-}).then((data)=>{
-  for(let j=0;j<result.length;j++)
-  {
-     if(data[j]['correct']==result[j])
-     {
-       correctedAnswer++;
-     }
-     else
-     {
-      incorrectedAnswer++;
-     }
+  var quizID=req.params.id;
+  var responses=req.body;
+  var result=[];
+  var count=0;
+  var correctedAnswer=0;
+  var incorrectedAnswer=0;
+  result["user"]=req.user;
+  var percentage=0;
+  
+  for(let [index,value] of Object.values(responses).entries()){
+    result[count]=value;
+    count++;
   }
-
-  percentage=(correctedAnswer/(correctedAnswer+incorrectedAnswer))*(100.0);
-
-  result["output"]={"correctedCount":correctedAnswer,"incorrectedCount":incorrectedAnswer,"percentage":percentage}
-  result["status"]=true;
-  res.render("showResult",{data:result});
-}).catch((err)=>{
-  result["status"]=false;
-  res.render("showResult",{data:result});
-})
-
-})
+  
+  Question.findAll({
+    row:true,
+    where:{"quizID":quizID}
+  }).then((data)=>{
+    for(let j=0;j<result.length;j++)
+    {
+       if(data[j]['correct']==result[j])
+       {
+         correctedAnswer++;
+       }
+       else
+       {
+        incorrectedAnswer++;
+       }
+    }
+  
+    percentage=(correctedAnswer/(correctedAnswer+incorrectedAnswer))*(100.0);
+  
+    result["output"]={"correctedCount":correctedAnswer,"incorrectedCount":incorrectedAnswer,"percentage":percentage}
+    result["status"]=true;
+    res.render("showResult",{data:result});
+  }).catch((err)=>{
+    result["status"]=false;
+    res.render("showResult",{data:result});
+  })
+  
+  })
 
 ///end of function
 }
