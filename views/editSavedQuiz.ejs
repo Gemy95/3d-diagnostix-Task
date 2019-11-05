@@ -148,12 +148,13 @@ $.AddNewQuiz=function (quiz,allQuestions)
   data: {"quiz":quiz,"allQuestions":allQuestions},
   dataType: 'json',
   success: function(data){
+    alert("data from server="+data);
     window.location.assign("/getMyPublishedQuizes/0");
-  }
-}).then((data)=>{
-
-});
-
+  },
+    fail: function(xhr, textStatus, errorThrown){
+       alert('request failed');
+    }
+})
  }
 
  $.SaveNewQuiz=function (quiz,allQuestions)
@@ -166,15 +167,13 @@ $.AddNewQuiz=function (quiz,allQuestions)
   success: function(data){
     alert("data from server="+data);
     window.location.reload();
-  }
-}).then((data)=>{
-    window.location.reload();
-});
-
+  },
+    fail: function(xhr, textStatus, errorThrown){
+       alert('request failed');
+    }
+})
  }
 
-
- 
 });
 ///end of jquery
 
@@ -265,7 +264,7 @@ function validateCorrectAnswer()
      answer3 = document.getElementsByName("answer"+(4*row +3))[0].value.trim();
      answer4 = document.getElementsByName("answer"+(4*row +4))[0].value.trim();
      correct = document.getElementsByName("correct"+(row+1))[0].value.trim();
-     console.log("correct="+correct);
+     //console.log("correct="+correct);
      //question=document.getElementsByName ("question"+(row+1))[0].value.trim();
      //explaination=document.getElementsByName("explaination"+(row+1))[0].value.trim();
 

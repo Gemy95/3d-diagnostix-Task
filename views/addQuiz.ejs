@@ -142,7 +142,10 @@ $.AddNewQuiz=function (quiz,allQuestions)
   dataType: 'json',
   success: function(data){
     alert("data from server="+data);
-  }
+  },
+    fail: function(xhr, textStatus, errorThrown){
+       alert('request failed');
+    }
 });
  }
 
@@ -155,7 +158,10 @@ $.AddNewQuiz=function (quiz,allQuestions)
   dataType: 'json',
   success: function(data){
     alert("data from server="+data);
-  }
+  },
+    fail: function(xhr, textStatus, errorThrown){
+       alert('request failed');
+    }
 });
 
  }
