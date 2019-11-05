@@ -463,8 +463,8 @@ Question.findAll({
       incorrectedAnswer++;
      }
   }
-  
-  percentage=(incorrectedAnswer/(correctedAnswer+incorrectedAnswer))*(100.0);
+
+  percentage=(correctedAnswer/(correctedAnswer+incorrectedAnswer))*(100.0);
 
   result["output"]={"correctedCount":correctedAnswer,"incorrectedCount":incorrectedAnswer,"percentage":percentage}
   result["status"]=true;

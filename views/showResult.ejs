@@ -19,27 +19,50 @@
 <br><br>
 <div class="row">
        <div class="col text-center">
-           <div style="background-color: blue;padding: 30px;">
-            <br>
+           <div style="background-color: blue;padding: 40px;" class="rounded">
                 <span style="font-size: 2vw;">persentage : </span>
                 <br>
                 <span style="font-size: 2vw;"><%=data['output'].percentage%> %</span>
                 <br>
            </div>
        </div>
-       <div class="col text-center">1</div>
        <div class="col text-center">
-            <div style="background-color: red;padding: 30px;">
+           <div class="rounded">
+            <br>
+              <% if (data['output'].percentage < 50) { %> 
+                <i class="far fa-frown-open " style="font-size:10vw;color:red;"></i>
+              <% } else { %>
+                <i class="far fa-grin" style="font-size:10vw;color:green;"></i>
+              <% } %>
+            <br>  
+           </div>
+           <br>
+           <div>
+                <br>
+                <% if (data['output'].percentage < 50) { %> 
+                  <span style="font-size: 2vw;">
+                        An unacceptable result needs to educate yourself more and permanently ...
+                  </span>
+                  <% } else { %>
+                    <span style="font-size: 2vw;">
+                            An acceptable result awesome for you ...
+                    </span>
+                    <% } %>
+                 <br>  
+            </div>
+       </div>
+       <div class="col text-center">
+            <div style="background-color: red;padding: 30px;" class="rounded">
                     <br>
-                        <span style="font-size: 2vw;">incorrect Answer : </span>
+                        <span style="font-size: 2vw;">incorrect Answer </span>
                         <br>
                         <span style="font-size: 2vw;"><%=data['output'].incorrectedCount%></span>
                         <br>
              </div>
              <br>
-             <div style="background-color: green;padding: 30px;">
+             <div style="background-color: green;padding: 30px;" class="rounded">
                     <br>
-                        <span style="font-size: 2vw;">Correct Answers : </span>
+                        <span style="font-size: 2vw;">Correct Answers </span>
                         <br>
                         <span style="font-size: 2vw;"><%=data['output'].correctedCount%></span>
                         <br>
