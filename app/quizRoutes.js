@@ -355,7 +355,7 @@ app.get("/getAllQuizesCategory",isLoggedIn,function (req,res) {
   .then((data)=> {
     result["categories"]=data;
     result["status"]=true;
-    console.log("categories="+JSON.stringify(data));
+    //console.log("categories="+JSON.stringify(data));
     res.render("quizesCategory",{data:result})
 }).catch((err)=>{
     result["status"]=false;
@@ -372,7 +372,7 @@ app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) 
   var result=[];
   result["user"]=req.user;
 
-  console.log("category="+category);
+  //console.log("category="+category);
 
    Quiz.findAll({
      row:true,
@@ -394,6 +394,37 @@ app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) 
     res.render("showQuizes",{data:""})
 });  
 })
+
+
+
+app.get("/startQuiz/:id",function(req,res){
+var quizID=req.params.id;
+var result=[];
+result["user"]=req.user;
+Quiz.findOne({
+  row:true,
+  where:{"ID":quizID}
+}).then((data)=>{
+  result["status"]=true
+  result["quiz"]=data;
+  Question.findAll({
+    row:true,
+    where:{"quizID":quizID}
+  }).then((data)=>{
+    result["questions"]=data;
+    res.render("startQuiz",{"data":result})
+  }).catch((err)=>{
+    result["status"]=false
+    res.render("startQuiz",{"data":data})
+  })
+    
+}).catch((err)=>{
+  result["status"]=false
+  res.render("startQuiz",{"data":data})
+})
+})
+
+
 
 ///end of function
 }

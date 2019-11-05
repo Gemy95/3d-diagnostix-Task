@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<style>
+.answer{
+    font-size: 1.2vw;
+}
+</style>
+<div class="container-fluid">
+  
+   <br>
+
+   <nav class="navbar navbar-expand-md bg-dark navbar-dark">                
+    <a class="navbar-brand" href="#">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+<div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/profile"> Profile</a>
+        </li>
+        <% if(data['user'].type=="student") { %>
+            <li class="nav-item">
+                <a class="nav-link" href="/getAllQuizesCategory"> Try Quiz</a>
+            </li>
+        <% } %>
+        <li class="nav-item">
+          <a href="/logout" class="nav-link">Logout</a>
+        </li>
+      </ul>
+    </div>
+</nav>
+<br><br>
+<% if(data["status"] == true) { %>
+<div class="row">  
+    <div class="col-12">
+ <div class="card card-body bg-light">
+        <div style="text-align: center;"> 
+            <span style="font-size: 2.5vw;">Quiz Details</span>
+        </div> 
+        <br>
+    <div class="card border-primary mb-5">
+           <div class="card-header">#</div>
+            <div class="card-body text-primary">
+              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Name : </span><span style="font-size:1.5vw;"><%=data['quiz'].name%></span> 
+              <br>
+              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Code : </span><span style="font-size:1.5vw;"><%=data['quiz'].code%></span> 
+              <br>
+              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Category : </span><span style="font-size:1.5vw;"><%=data['quiz'].category%></span> 
+              <br>
+            </div>
+        </div>
+<hr>
+   <span style="font-size: 2vw;"> Questions : </span>
+   <br>
+   <% for(let i=0;i< data['questions'].length;i++) { %>
+   <div class="">
+     <span style="font-size: 1.5vw;"><%=(i+1)%> . <%=data['questions'][i].question%> </span>
+     <br>
+     <span class="answer">
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline<%=((i*(i+1)*(i+1))+1)%>" name="customRadioInline<%=((i*(i+1)*(i+1))+1)%>" class="custom-control-input">
+        <label class="custom-control-label" for="customRadioInline<%=((i*(i+1)*(i+1))+1)%>"></label>
+        <span><%=data['questions'][i]['answer1']%></span>
+      </div>
+     </span>
+     <br>
+     <span class="answer">
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline<%=((i*(i+1)*(i+1))+2)%>" name="customRadioInline<%=((i*(i+1)*(i+1))+1)%>" class="custom-control-input">
+        <label class="custom-control-label" for="customRadioInline<%=((i*(i+1)*(i+1))+2)%>"></label>
+        <span><%=data['questions'][i]['answer2']%></span>
+      </div>
+     </span>
+     <br>
+     <span class="answer">
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline<%=((i*(i+1)*(i+1))+3)%>" name="customRadioInline<%=((i*(i+1)*(i+1))+1)%>" class="custom-control-input">
+        <label class="custom-control-label" for="customRadioInline<%=((i*(i+1)*(i+1))+3)%>"></label>
+        <span><%=data['questions'][i]['answer3']%></span>
+      </div>
+     </span>
+     <br>
+     <span class="answer">
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadioInline<%=((i*(i+1)*(i+1))+4)%>" name="customRadioInline<%=((i*(i+1)*(i+1))+1)%>" class="custom-control-input">
+        <label class="custom-control-label" for="customRadioInline<%=((i*(i+1)*(i+1))+4)%>"></label>
+        <span><%=data['questions'][i]['answer4']%></span>
+      </div>
+     </span>
+     <br>
+   </div>
+   <br>
+   <% } %>
+ </div>
+ </div>
+</div>
+<% } else { %>
+  <div class="row" style="justify-content:center;padding-top: 150px;">
+    <span style="font-size: 2.5vw;"> Quize Not Founded </span>
+</div>
+<% } %>
+
+</div>
+
+   

@@ -49,7 +49,7 @@
   <% for(var i=0; i< data['categories'].length ; i++) { %> 
      <div class="col-5" style="margin-top: 50px;">
         <div class="card border-primary mb-3 col">
-            <div class="card-header">Type</div>
+            <div class="card-header">#<%=(i+1)%></div>
             <div class="card-body text-primary">
             <a href="/getAllQuizesBYCategory/<%=data['categories'][i]['DISTINCT']%>/0">
               <h5 class="card-title"><%=data['categories'][i]['DISTINCT']%></h5>  
