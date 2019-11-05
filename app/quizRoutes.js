@@ -1,8 +1,10 @@
 module.exports = function(app,passport,Quiz,Question,con) {
 
   app.get('/addQuiz', isLoggedIn, function(req, res){
+    var result = [];
+    result["user"]=req.user;
         res.render('addQuiz.ejs', {
-         user:req.user
+         data:result
         });
     });
 
@@ -113,6 +115,7 @@ Quiz.count({
 app.get("/getSingleQuiz/:id", isLoggedIn,function(req,res) {
   var quizID=req.params.id;
   var result=[];
+  result["user"]=req.user;
   con.transaction().then(transaction => {
     return Quiz.findOne({
       raw: true,
@@ -128,14 +131,13 @@ app.get("/getSingleQuiz/:id", isLoggedIn,function(req,res) {
       .then((data2) => {
         //console.log("success")
         result["questions"]=data2;
-        result["user"]=req.user;
         transaction.commit()
         res.render("showSingleQuiz",{data:result});
       })
       .catch(() => {
         //console.log("error")
         transaction.rollback();
-        res.render("showSingleQuiz",{data:""});
+        res.render("showSingleQuiz",{data:result});
       });
   })
 })
@@ -148,7 +150,8 @@ app.get("/getMySavedQuizes/:id/:page",isLoggedIn,function(req,res) {
   var perPage=4;
   var Offset=perPage*page;
   var data=[];
-  
+  data["user"]=req.user;
+
   Quiz.count({
     raw: true,
     where:{"isReady":0,"teacherID":teacherID}
@@ -163,16 +166,21 @@ app.get("/getMySavedQuizes/:id/:page",isLoggedIn,function(req,res) {
       where:{"teacherID":teacherID,"isReady":0}
       }).then(function (result) {
         result=result;
-        data["user"]=req.user;
         data["count"]=Math.ceil(count/(perPage*1.0));
         data["result"]= result;
         //console.log(data);
         res.render("savedQuizes.ejs",{
           data:data
          });
-      }).catch((err)=>{result=-1})
+      }).catch((err)=>{
+        res.render("savedQuizes.ejs",{
+          data:data
+         });
+      })
   }).catch((err)=>{
-    count=-1;
+    res.render("savedQuizes.ejs",{
+      data:data
+     });
   });
   
  })
@@ -227,6 +235,7 @@ app.get("/getMySavedQuizes/:id/:page",isLoggedIn,function(req,res) {
  app.get("/getToUpdateFromSavedQuizes/:id", isLoggedIn,function(req,res) {
   var quizID=req.params.id;
   var result=[];
+  result["user"]=req.user;
   con.transaction().then(transaction => {
     return Quiz.findOne({
       raw: true,
@@ -242,14 +251,13 @@ app.get("/getMySavedQuizes/:id/:page",isLoggedIn,function(req,res) {
       .then((data2) => {
         //console.log("success")
         result["questions"]=data2;
-        result["user"]=req.user;
         transaction.commit()
         res.render("editSavedQuiz",{data:result});
       })
       .catch(() => {
         //console.log("error")
         transaction.rollback();
-        res.render("editSavedQuiz",{data:""});
+        res.render("editSavedQuiz",{data:result});
       });
   })
 })
@@ -425,6 +433,47 @@ Quiz.findOne({
 })
 
 
+app.post("/getStudentResult/:id",function(req,res){
+var quizID=req.params.id;
+var responses=req.body;
+var result=[];
+var count=0;
+var correctedAnswer=0;
+var failedAnswer=0;
+result["user"]=req.user;
+var percentage=0;
+
+for(let [index,value] of Object.values(responses).entries()){
+  result[count]=value;
+  count++;
+}
+
+Question.findAll({
+  row:true,
+  where:{"quizID":quizID}
+}).then((data)=>{
+  for(let j=0;j<result.length;j++)
+  {
+     if(data[j]['correct']==result[j])
+     {
+       correctedAnswer++;
+     }
+     else
+     {
+       failedAnswer++;
+     }
+  }
+
+  percentage=(correctedAnswer+failedAnswer)/(100.0);
+  result["output"]={"correctedCount":correctedAnswer,"faildedCount":failedAnswer,"percentage":percentage}
+  result["status"]=true;
+  res.render("showResult",{data:result});
+}).catch((err)=>{
+  result["status"]=false;
+  res.render("showResult",{data:result});
+})
+
+})
 
 ///end of function
 }

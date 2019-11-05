@@ -18,12 +18,12 @@
             <li class="nav-item">
               <a class="nav-link" href="/profile"> Profile</a>
             </li>
-            <% if(user.type=="teacher") { %>
+            <% if(data['user'].type=="teacher") { %>
             <li class="nav-item">
                 <a class="nav-link" href="/addQuiz"> Add Quiz</a>
             </li>
             <% } %>
-            <% if(user.type=="student") { %>
+            <% if(data['user'].type=="student") { %>
             <li class="nav-item">
                 <a class="nav-link" href="/getAllQuizesCategory"> Try Quiz</a>
             </li>

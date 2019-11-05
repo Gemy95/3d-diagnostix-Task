@@ -35,8 +35,10 @@ module.exports = function(app, passport) {
 
 
  app.get('/profile', isLoggedIn, function(req, res){
+     var result=[];
+     result["user"]=req.user;
   res.render('profile.ejs', {
-   user:req.user
+   data:result
   });
  });
 
