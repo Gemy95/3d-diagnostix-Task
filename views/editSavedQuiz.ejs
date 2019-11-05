@@ -144,11 +144,11 @@ $.AddNewQuiz=function (quiz,allQuestions)
 {
  $.ajax({
   type: "POST",
-  url: "/publishFromSavedQuizes/<%=data['quiz']['ID']%>",
+  url: "/publishFromEditSavedQuizes/<%=data['quiz']['ID']%>",
   data: {"quiz":quiz,"allQuestions":allQuestions},
   dataType: 'json',
   success: function(data){
-    window.location.assign("/getMyPublishedQuizes/<%=data['quiz']['teacherID']%>/0");
+    window.location.assign("/getMyPublishedQuizes/0");
   }
 }).then((data)=>{
 
