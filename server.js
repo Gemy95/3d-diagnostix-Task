@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app = express();
 
-
 var passport = require('passport');
 var flash = require('connect-flash');
 
