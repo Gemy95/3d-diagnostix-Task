@@ -5,15 +5,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
  <title>Quizz Website</title>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- <link media="all" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
  <style type="text/css">
-
-.containers {
-    min-height: 500px;
-}
-
 /*
 @media screen and (max-width: 500px) {
   .containers {
@@ -26,14 +18,14 @@
     
 </head>
 <body>
-<div class="container-fluid containers">
+<div class="container-fluid ">
   
     <% include ./partials/navbar %>
 <br>
 <div style="height: 100%;">
 <% if(data['result'].length>0) { %>
 <div class="row">
-    <div class="col-12 text-center"><h2>My Quizes</h2></div>
+    <div class="col-12 text-center"><h2>My Saved Quizes</h2></div>
 </div>
             
 <br>
@@ -78,8 +70,10 @@
           </nav>
  </div>
 <% } else { %>
-    <div class="row" style="justify-content:center;">
-        <span style="font-size: 2.5vw;">Saved Quizes Not Founded </span>
+    <div class="row" style="justify-content:center;height: 500px;">
+      <div>
+        <span style="font-size: 2rem;">Saved Quizes Not Founded </span>
+      </div>
     </div>
    <% } %>
 </div>
