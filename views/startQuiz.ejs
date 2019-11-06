@@ -1,10 +1,25 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>Quizz Website</title>
+    
 <style>
+@media screen and (max-width: 500px) {
+  .containers {
+    height: 750px;
+  } 
+}
 .answer{
     font-size: 1.2rem;
 }
 </style>
-<div class="container-fluid">
+ </head>
+ <body>
+
+<div class="container-fluid containers">
    <% include ./partials/navbar %>
 <br>
 <% if(data["status"] == true) { %>
@@ -100,6 +115,12 @@
 </div>
 <% } %>
 </div>
+<br>
+<% include ./partials/footer %>
+
+ </body>
+</html>
+
 <script>
 var timerVar = setInterval(countTimer, 1000);
 var totalSeconds = 0;
