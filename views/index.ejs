@@ -26,13 +26,13 @@ html,body{height:100%;}
     color:#efefef;
 }
 @media screen and (min-height: 500px) {
-  .fill {
-    height: 1300px;
+  .containers {
+    height: 1050px;
   }
 }
 
 @media screen and (min-width: 800px) {
-  .fill {
+  .containers {
     height: 1000px;
   }
 }
@@ -41,10 +41,10 @@ html,body{height:100%;}
     
 </head>
 <body>
- <div class="container-fluid">
+ <div class="container-fluid containers" >
      <% include ./partials/navbar %>
   
- <div class="row justify-content-center fill" style="margin:0px;padding: 0px; ">
+ <div class="row justify-content-center fill" style="margin:0px;padding: 0px;height: 100%; ">
      <div class="col-12 bgimg" >
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="height: 100%;">
                     <ol class="carousel-indicators">
