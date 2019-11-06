@@ -5,18 +5,45 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
  <title>Quizz Website</title>
- 
  <style type="text/css">
     
- </style>
+html,body{height:100%;}
+
+.container {
+    height:100%;
+}
+
+.fill{
+    width:100%;
+    height:100%;
+    min-height:100%;
+    background-color:#990000;
+    padding:10px;
+    color:#efefef;
+}
+/*
+@media screen and (max-height: 402) {
+  .containers {
+    height: 1500px;
+  }
+}
+*/
+
+@media screen and (max-width: 800px) {
+  .containers {
+    height: 500px;
+  } 
+}
+
+  </style>
     
 </head>
 <body>
- <div class="container-fluid" id="parent">
+ <div class="container-fluid containers" >
      <% include ./partials/navbar %>
   
  <div class="row justify-content-center fill" style="margin:0px;padding: 0px;height: 100%; ">
-     <div class="col-12 bgimg" >
+     <div class="col-12 bgimg" style="height: 100%;">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="height: 100%;">
                     <ol class="carousel-indicators">
                       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -48,8 +75,4 @@
  <% include ./partials/footer %>
  </div>
 </body>
-<script>
-var screenHeight=screen.height;
-document.getElementById("parent").style.height=screenHeight;
-</script>
 </html>
