@@ -1,48 +1,42 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <style>
 .answer{
-    font-size: 1.2vw;
+    font-size: 1.2rem;
 }
 </style>
 <div class="container-fluid">
-  
-   <br>
    <% include ./partials/navbar %>
-<br><br>
+<br>
 <% if(data["status"] == true) { %>
 <div class="row">  
     <div class="col-12">
  <div class="card card-body bg-light">
         <div style="text-align: center;"> 
-            <span style="font-size: 2.5vw;">Quiz Details</span>
+            <span style="font-size: 2rem;">Quiz Details And Questions</span>
         </div> 
         <br>
     <div class="card border-primary mb-5">
            <div class="card-header">#</div>
             <div class="card-body text-primary">
-              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Name : </span><span style="font-size:1.5vw;"><%=data['quiz'].name%></span> 
+              <span style="font-size: 1.5rem;padding-top: 20px;" class="card-text"> Name : </span><span style="font-size:1.2rem;"><%=data['quiz'].name%></span> 
               <br>
-              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Code : </span><span style="font-size:1.5vw;"><%=data['quiz'].code%></span> 
+              <span style="font-size: 1.5rem;padding-top: 20px;" class="card-text"> Code : </span><span style="font-size:1.2rem;"><%=data['quiz'].code%></span> 
               <br>
-              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Category : </span><span style="font-size:1.5vw;"><%=data['quiz'].category%></span> 
+              <span style="font-size: 1.5rem;padding-top: 20px;" class="card-text"> Category : </span><span style="font-size:1.2rem;"><%=data['quiz'].category%></span> 
               <br>
             </div>
         </div>
 <hr>
 <div class="d-flex flex-row-reverse">
-    <div id="timer" style="font-size: 2vw;"></div>
+    <div id="timer" style="font-size: 1.8rem;"></div>
 </div>
 <br>
-   <span style="font-size: 2vw;"> Questions : </span>
+   <span style="font-size: 1.8rem;"> Questions : </span>
    <form method="POST" action="/getStudentResult/<%=data['quiz'].ID%>">
    <br>
    <% for(let i=0;i< data['questions'].length;i++) { %>
    <div class="">
-     <span style="font-size: 1.5vw;"><%=(i+1)%> . <%=data['questions'][i].question%> ? </span>
+     <span style="font-size: 1.5rem;"><%=(i+1)%> . <%=data['questions'][i].question%> ? </span>
      <br>
      <span class="answer">
       <div class="custom-control custom-radio custom-control-inline">
@@ -102,7 +96,7 @@
 </div>
 <% } else { %>
   <div class="row" style="justify-content:center;padding-top: 150px;">
-    <span style="font-size: 2.5vw;"> Quize Not Founded </span>
+    <span style="font-size: 2rem;"> Quize Not Founded </span>
 </div>
 <% } %>
 </div>
