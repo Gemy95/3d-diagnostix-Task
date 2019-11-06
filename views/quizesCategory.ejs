@@ -1,12 +1,6 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <style>
-.answer{
-    font-size: 1.2vw;
-}
+
 </style>
 <div class="container-fluid">
   <% include ./partials/navbar %>
@@ -16,19 +10,18 @@
 
 <div class="row">  
       <div class="col-12" style="text-align: center;"> 
-          <marquee><span style="font-size: 2.5vw;"> Please Select Quiz Category ?</span></marquee>
+          <marquee><span style="font-size: 2.5rem"> Please Select Quiz Subject ?</span></marquee>
       </div>  
 </div>
 
 <div class="row justify-content-center">
   <% for(var i=0; i< data['categories'].length ; i++) { %> 
      <div class="col-5" style="margin-top: 50px;">
+      <a href="/getAllQuizesBYCategory/<%=data['categories'][i]['DISTINCT']%>/0" style="text-decoration:none">
         <div class="card border-primary mb-3 col">
             <div class="card-header">#<%=(i+1)%></div>
             <div class="card-body text-primary">
-            <a href="/getAllQuizesBYCategory/<%=data['categories'][i]['DISTINCT']%>/0">
               <h5 class="card-title"><%=data['categories'][i]['DISTINCT']%></h5>  
-             </a>
               <p class="card-text">
                     Thought (also called thinking) is the mental process in which beings form
                      psychological associations and models of the world. Thinking is manipulating
@@ -36,15 +29,16 @@
               </p>
             </div>
     </div>
+     </a>
       </div>
       <% } %>
   </div>
  
 <% } else { %>
   <div class="row" style="justify-content:center;padding-top: 150px;">
-      <span style="font-size: 2.5vw;">Saved Quizes Not Founded </span>
+      <span style="font-size: 2rem"> Quizes Not Founded </span>
   </div>
 <% }  %>
- 
- 
+ <br><br>
+ <% include ./partials/footer %>
 </div>
