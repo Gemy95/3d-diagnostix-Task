@@ -31,7 +31,11 @@ Teacher.init({
   ,
   email: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true,
+      notEmpty: true
+    }
   }
   ,
   image: {

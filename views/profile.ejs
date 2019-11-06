@@ -12,28 +12,23 @@
  <div class="container-fluid">
         <% include ./partials/navbar %>
   <div class="row " style="padding: 10px;">
-   <div class="col-12 text-center"><span style="font-size:3vw">My Profile</span> </div>
-   <br>
+   <div class="col-12 text-center"><h1>My Profile</h1> </div>
   </div>
+  <div class="row " style="padding: 10px;">
     <% if(data['user'].type=='teacher') { %>
-      <div class="d-flex justify-content-center">
-            <div class="col-3 text-center"> <a class="btn btn-primary" style="font-size: 1.3vw;" href="/getMyPublishedQuizes/0">
-             Show Published Quizes </a> 
-            </div>
-            <div class="col-3 text-center"> <a class="btn btn-warning" style="font-size: 1.3vw;" href="/getMySavedQuizes/0">
-            Show Saved Quizes </a>  </div>
-       </div>  
+      <div class="col-12 text-center">
+             <a class="btn btn-primary" href="/getMyPublishedQuizes/0">Show Published Quizes </a> 
+              &nbsp; &nbsp; &nbsp; &nbsp;
+             <a class="btn btn-warning" href="/getMySavedQuizes/0">Show Saved Quizes </a> 
+       </div>
      <% } %>
-     <br>
      <% if(data['user'].type=='student') { %>
-      <div class="row">
       <div class="col-12 text-center">
              <a class="btn btn-primary"  href="/getAllQuizesCategory"> Try Quizes</a>
        </div>
-      </div>
      <% } %>
      
-  
+  </div>
   <div class="row">
    <div class="col-sm-12">
     <div class="card card-body bg-light">
