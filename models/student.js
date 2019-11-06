@@ -65,6 +65,11 @@ Student.init({
     type: Sequelize.STRING,
     allowNull: false
   }
+  ,
+  gender: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
 }
 
 , {
