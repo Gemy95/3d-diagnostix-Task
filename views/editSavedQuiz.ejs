@@ -175,7 +175,7 @@ $.AddNewQuiz=function (quiz,allQuestions)
   data: {"quiz":quiz,"allQuestions":allQuestions},
   dataType: 'json',
   success: function(data){
-    alert("data from server="+data);
+    //alert("data from server="+data);
     window.location.assign("/getMyPublishedQuizes/0");
   },
     fail: function(xhr, textStatus, errorThrown){
@@ -192,7 +192,7 @@ $.AddNewQuiz=function (quiz,allQuestions)
   data: {"quiz":quiz,"allQuestions":allQuestions},
   dataType: 'json',
   success: function(data){
-    alert("data from server="+data);
+    //alert("data from server="+data);
     window.location.reload();
   },
     fail: function(xhr, textStatus, errorThrown){
@@ -259,7 +259,7 @@ function publish_quiz()
                 alert("your question published now")
                 $.AddNewQuiz(quiz,allQuestions);
                 //document.getElementById("myForm").submit(); 
-                console.log("published clicked");
+                //console.log("published clicked");
             }
             else
             {
