@@ -14,21 +14,20 @@
   <div class="row " style="padding: 10px;">
    <div class="col-12 text-center"><h1>My Profile</h1> </div>
   </div>
-  <div class="row " style="padding: 10px;">
+ 
     <% if(data['user'].type=='teacher') { %>
-      <div class="col-12 text-center">
-             <a class="btn btn-primary" href="/getMyPublishedQuizes/0">Show Published Quizes </a> 
+      <div class="row justify-content-center" style="padding: 10px;">
+            <div class="col-lg-2 col-md-3 col-sm-12  text-center"> <a class="btn btn-primary" href="/getMyPublishedQuizes/0">Show Published Quizes </a> </div> 
               &nbsp; &nbsp; &nbsp; &nbsp;
-             <a class="btn btn-warning" href="/getMySavedQuizes/0">Show Saved Quizes </a> 
+            <div class="col-lg-2 col-md-3 col-sm-12 text-center"><a class="btn btn-warning" href="/getMySavedQuizes/0">Show Saved Quizes </a> </div>
        </div>
      <% } %>
      <% if(data['user'].type=='student') { %>
-      <div class="col-12 text-center">
+      <div class="row justify-content-center">
              <a class="btn btn-primary"  href="/getAllQuizesCategory"> Try Quizes</a>
        </div>
      <% } %>
      
-  </div>
   <div class="row">
    <div class="col-sm-12">
     <div class="card card-body bg-light">
