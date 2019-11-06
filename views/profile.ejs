@@ -9,7 +9,7 @@
 </style>
  </head>
  <body>
-   
+
 <div class="container-fluid ">
         <% include ./partials/navbar %>
   <div class="row " style="padding: 10px;">
@@ -33,6 +33,7 @@
    <div class="col-sm-12">
     <div class="card card-body bg-light">
      <div class="text-center"><img class="rounded-circle" src="https://diagnostix-quiz-app.herokuapp.com/<%=data['user'].image%>" style="width:100px;height: 100px;"></div>
+     <br>
      <h3><span class="fa fa-user"></span> Welcome <%= data['user'].firstName %> </h3>
      <br>
      <p>
@@ -49,6 +50,7 @@
    </div>
   </div>
  </div>
+<br>
  <% include ./partials/footer %>
 </body>
 </html>
