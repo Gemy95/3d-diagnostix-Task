@@ -8,9 +8,7 @@ var app = express();
 var passport = require('passport');
 var flash = require('connect-flash');
 
-var connection=require("./models/connection");
-
-const con = connection;
+const connection=require("./models/connection");
 
 var Student=require("./models/student");
 
@@ -42,7 +40,7 @@ app.use(flash());
 app.use(express.static(__dirname+'/public'));
 
 require('./app/loginAndRegisterRoutes.js')(app, passport);
-require('./app/quizRoutes.js')(app,passport,Quiz,Question,con);
+require('./app/quizRoutes.js')(app,passport,Quiz,Question,connection);
 
 var port = process.env.PORT || 8080;
 app.listen(port,function(){

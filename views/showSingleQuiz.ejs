@@ -5,7 +5,7 @@
 
 <style>
 .answer{
-    font-size: 1.2vw;
+    font-size: 1.3rem;
 }
 </style>
 <div class="container-fluid">
@@ -16,20 +16,20 @@
     <div class="col-12">
  <div class="card card-body bg-light">
         <div style="text-align: center;"> 
-            <span style="font-size: 2.5vw;">Quiz Details</span>
+            <span style="font-size: 2.5rem;">Quiz Details</span>
         </div> 
         <br>
     <div class="card border-primary mb-5">
            <div class="card-header">#</div>
             <div class="card-body text-primary">
-              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Name : </span><span style="font-size:1.5vw;"><%=data['quiz'].name%></span> 
+              <span style="font-size: 1.5rem;padding-top: 20px;" class="card-text"> Name : </span><span style="font-size:1.4rem"><%=data['quiz'].name%></span> 
               <br>
-              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Code : </span><span style="font-size:1.5vw;"><%=data['quiz'].code%></span> 
+              <span style="font-size: 1.5rem;padding-top: 20px;" class="card-text"> Code : </span><span style="font-size:1.4rem"><%=data['quiz'].code%></span> 
               <br>
-              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Category : </span><span style="font-size:1.5vw;"><%=data['quiz'].category%></span> 
+              <span style="font-size: 1.5rem;padding-top: 20px;" class="card-text"> Category : </span><span style="font-size:1.4rem"><%=data['quiz'].category%></span> 
               <br>
-              <span style="font-size: 1.7vw;padding-top: 20px;" class="card-text"> Is Ready : </span>
-              <span style="font-size:1.5vw;" class="card-text">
+              <span style="font-size: 1.5rem;padding-top: 20px;" class="card-text"> Is Ready : </span>
+              <span style="font-size:1.4rem;" class="card-text">
                   <% if(data['quiz'].isReady == 1) { %>
                      published
                   <% } else { %>
@@ -39,11 +39,11 @@
             </div>
         </div>
 <hr>
-   <span style="font-size: 2vw;"> Questions : </span>
+   <span style="font-size: 2rem"> Questions : </span>
    <br>
    <% for(let i=0;i< data['questions'].length;i++) { %>
    <div class="">
-     <span style="font-size: 1.5vw;"><%=(i+1)%> . <%=data['questions'][i].question%> </span>
+     <span style="font-size: 1.5rem"><%=(i+1)%> . <%=data['questions'][i].question%> </span>
      <br>
      <span class="answer">a. <%=data['questions'][i].answer1%> </span>
      <br>
