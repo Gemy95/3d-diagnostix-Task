@@ -19,22 +19,30 @@
           <ul class="navbar-nav">
               <% if( data['user'].type == undefined || data['user'].type==null) { %>
                 <li class="nav-item">
-                  <a class="nav-link" href="/login"> Login</a>
+                  <a class="nav-link" href="/login"> Login </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/signup"> Register</a>
+                    <a class="nav-link" href="/signup"> Register </a>
                   </li>
                 <% } %>
               <% if( data['user'].type=="student" || data['user'].type=="teacher") { %>
             <li class="nav-item">
-              <a class="nav-link" href="/profile"> Profile</a>
+              <a class="nav-link" href="/profile"> Profile </a>
             </li>
             <% } %>
             <% if(data['user'].type=="teacher") { %>
             <li class="nav-item">
-                <a class="nav-link" href="/addQuiz"> Add Quiz</a>
+                <a class="nav-link" href="/addQuiz"> Add Quiz </a>
             </li>
             <% } %>
+            <% if(data['user'].type=="teacher") { %>
+              <li class="nav-item">
+                  <a class="nav-link" href="/getMyPublishedQuizes/0"> Published Quizes </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/getMySavedQuizes/0"> Saved Quizes </a>
+            </li>
+              <% } %>
             <% if(data['user'].type=="student") { %>
             <li class="nav-item">
                 <a class="nav-link" href="/getAllQuizesCategory"> Try Quiz</a>
@@ -48,3 +56,11 @@
           </ul>
         </div>
 </nav>
+
+<% if(data['user'].type=='teacher') { %>
+  <div class="row justify-content-center" style="padding: 10px;">
+        <div class="col-lg-2 col-md-3 col-sm-12  text-center"> <a class="btn btn-primary" href="">Show  </a> </div> 
+          &nbsp; &nbsp; &nbsp; &nbsp;
+        <div class="col-lg-2 col-md-3 col-sm-12 text-center"><a class="btn btn-warning" href="">Show  </a> </div>
+   </div>
+ <% } %>
