@@ -47,13 +47,13 @@
                   <h4 class="card-title"><%=data['result'][i]['category']%> Exam</h4>
                   <p class="card-text"><b>Exam Code: <%=data['result'][i]['code']%></b></p>
                 <div class="d-flex justify-content-center">
-                  <div class=""> <a href="/getToUpdateFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-warning btn-sm btn-block">Edit Quiz</a></div>
+                  <div class=""> <a href="/getToUpdateFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-warning btn-sm btn-block">Edit</a></div>
                   &nbsp;
-                  <div class=""><a href="/publishFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-primary btn-sm btn-block" >Publish Quiz</a></div>
+                  <div class=""><a href="/publishFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-primary btn-sm btn-block" >Publish</a></div>
                   &nbsp;
-                  <div class=""> <a href="/deleteSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-danger btn-sm btn-block" >Delete Quiz</a></div>
+                  <div class=""> <a href="/deleteSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-danger btn-sm btn-block" >Delete</a></div>
                   &nbsp;
-                  <div class=""><a href="/getSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-success  btn-sm btn-block">Show Quiz</a></div>
+                  <div class=""><a href="/getSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-success  btn-sm btn-block">Show</a></div>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
 </div>
 
 <br>
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center" style="padding-top: 50px;">
     <nav aria-label="...">
             <ul class="pagination pagination-lg">
               <% for( let i=0;i< data['count'] ;i++)  { %>
