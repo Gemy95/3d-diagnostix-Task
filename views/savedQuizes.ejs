@@ -11,15 +11,16 @@
  <style type="text/css">
 
 .containers {
-    min-height: 700px;
+    min-height: 500px;
 }
 
+/*
 @media screen and (max-width: 500px) {
   .containers {
     height: 750px;
   } 
 }
-
+*/
 
   </style>
     
@@ -32,13 +33,13 @@
 <div style="height: 100%;">
 <% if(data['result'].length>0) { %>
 <div class="row">
-    <div class="col-12 text-center"><span style="font-size: 3.5vw;">My Quizes</span></div>
+    <div class="col-12 text-center"><h2>My Quizes</h2></div>
 </div>
             
 <br>
 <div class="row" >
 <div class="col-12" style="text-align: center;">
-<div class="col-8 text-center" style="margin: 0 auto;min-height: 400px;" >
+<div class="col-11 text-center" style="margin: 0 auto;min-height: 400px;" >
     <% for (var i = 0 ; i < data['result'].length ; i++) { %>
         <div class="card">
                 <h4 class="card-header"><%=data['result'][i]['name']%></h4>
@@ -46,17 +47,16 @@
                   <h4 class="card-title"><%=data['result'][i]['category']%> Exam</h4>
                   <p class="card-text"><b>Exam Code: <%=data['result'][i]['code']%></b></p>
                 <div class="d-flex justify-content-center">
-                  <div class=""> <a href="/getToUpdateFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-warning btn-sm btn-block" style="font-size: 1.2vw;">Edit Quiz</a></div>
+                  <div class=""> <a href="/getToUpdateFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-warning btn-sm btn-block">Edit Quiz</a></div>
                   &nbsp;
-                  <div class=""><a href="/publishFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-primary btn-sm btn-block" style="font-size: 1.2vw;">Publish Quiz</a></div>
+                  <div class=""><a href="/publishFromSavedQuizes/<%=data['result'][i]['ID']%>" class="btn btn-primary btn-sm btn-block" >Publish Quiz</a></div>
                   &nbsp;
-                  <div class=""> <a href="/deleteSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-danger btn-sm btn-block" style="font-size: 1.2vw;">Delete Quiz</a></div>
+                  <div class=""> <a href="/deleteSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-danger btn-sm btn-block" >Delete Quiz</a></div>
                   &nbsp;
-                  <div class=""><a href="/getSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-success  btn-sm btn-block" style="font-size: 1.2vw;">Show Quiz</a></div>
+                  <div class=""><a href="/getSingleQuiz/<%=data['result'][i]['ID']%>" class="btn btn-success  btn-sm btn-block">Show Quiz</a></div>
                 </div>
             </div>
         </div>
-        <br>
      <% } %>  
 </div>
 </div>
