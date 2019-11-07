@@ -9,13 +9,13 @@
 <style>
 @media screen and (max-height: 402) {
   .containers {
-    height: 2300px;
+    height: 800px;
   }
 }
 
 @media screen and (max-width: 1000px) {
   .containers {
-    height: 1700px;
+    height: 700px;
   } 
 }
 </style>
@@ -36,15 +36,15 @@
     <form class="form-horizontal col-12" id="myForm" onsubmit="event.preventDefault();">   
      <div class="d-flex ">
         <div class=" col">
-        <span  style="font-size: 2vw;" >Quiz Name:</span>
+        <span  style="font-size: 1.5rem;" >Quiz Name:</span>
         <input type="text" name="quizName" value="<%=data['quiz']['name']%>" class="form-control"  required minlength="3" /> 
         </div>
         <div class=" col">
-        <span  style="font-size: 2vw;" >Quiz Code:</span>
+        <span  style="font-size: 1.5rem;" >Quiz Code:</span>
         <input class="form-control" type="text" name="quizCode" value="<%=data['quiz']['code']%>" required minlength="3" /> 
         </div>
         <div class=" col">
-        <span  style="font-size: 2vw;" >Subject:</span>
+        <span  style="font-size: 1.5rem;" >Subject:</span>
         <select class="form-control" name="category" value="<%=data['quiz']['category']%>" required>
            <option value="math">Math</option>
            <option value="chemistry">Chemistry</option>
