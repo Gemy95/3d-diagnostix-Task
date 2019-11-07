@@ -122,7 +122,8 @@
 </div>
 </form>
 </div>
-<%=data['questions']%>
+<br>
+<% include ./partials/footer %>
 </div>
 </body>
 </html>
@@ -130,7 +131,10 @@
 
 <script type="text/javascript">
    
-    
+   alert(document.getElementById("myTable").rows.item(0).innerHTML);
+   alert(document.getElementById("myTable").rows.item(1).innerHTML);
+   alert(document.getElementById("myTable").rows.item(3).innerHTML);
+   alert(document.getElementById("myTable").rows.item(4).innerHTML);
 $(document).ready(function () {
     
     var counter = $('#myTable tr').length-2;
