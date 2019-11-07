@@ -122,16 +122,18 @@
 </div>
 </form>
 </div>
+<%=data['questions']%>
 </div>
 </body>
 </html>
 
 
-
 <script type="text/javascript">
+   
     
 $(document).ready(function () {
-    var counter = 1;
+    
+    var counter = $('#myTable tr').length-2;
 
     $("#addrow").on("click", function () {
         var newRow = $("<tr>");
@@ -168,7 +170,7 @@ $.AddNewQuiz=function (quiz,allQuestions)
   data: {"quiz":quiz,"allQuestions":allQuestions},
   dataType: 'json',
   success: function(data){
-    //alert("data from server="+data);
+    alert("data from server="+data);
     window.location.assign("/getMyPublishedQuizes/0");
   },
     fail: function(xhr, textStatus, errorThrown){
@@ -185,7 +187,7 @@ $.AddNewQuiz=function (quiz,allQuestions)
   data: {"quiz":quiz,"allQuestions":allQuestions},
   dataType: 'json',
   success: function(data){
-    //alert("data from server="+data);
+    alert("data from server="+data);
     window.location.reload();
   },
     fail: function(xhr, textStatus, errorThrown){
@@ -276,6 +278,7 @@ function validateCorrectAnswer()
 {
    var status=true; 
    var count = countRows();
+   console.log("count row from validate correct fun="+count);
    for(let row=0;row<count;row++)
    {
      var answer1,answer2,answer3,answer4,correct,explaination,question; 
@@ -346,9 +349,9 @@ function hasRepeatedAnswer(array)
 function save_quiz()
 {
    var count = countRows();
-   //console.log("count="+count);
+   console.log("count="+count);
    var allQuestions=[];
-   var quiz=[];
+   var quiz;
    var question,answer1,answer2,answer3,answer4,correct,explaination;
    
    for(let row=0;row<count;row++)
@@ -376,9 +379,11 @@ function save_quiz()
    "name":document.getElementsByName('quizName')[0].value.trim(),
    "code":document.getElementsByName('quizCode')[0].value.trim(),
    "category":document.getElementsByName('category')[0].value.trim(),
-   "isReady":true
+   "isReady": false
     }
 
+    console.log("quiz="+quiz);
+    console.log("allquestion="+allQuestions);
 
    if(validateCorrectAnswer())
   {
@@ -389,6 +394,7 @@ function save_quiz()
                 alert("your question saved")
                 $.SaveNewQuiz(quiz,allQuestions);
                 //document.getElementById("myForm").submit(); 
+                //a7a
             }
             else
             {

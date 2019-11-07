@@ -252,6 +252,7 @@ app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
       .then((data2) => {
         //console.log("success")
         result["questions"]=data2;
+        console.log("questions="+data2);
         transaction.commit()
         res.render("editSavedQuiz",{data:result});
       })
@@ -268,6 +269,8 @@ app.post('/UpdateFromSavedQuizes/:id', isLoggedIn, function(req, res){
   var quiz= req.body.quiz;
   var allQuestions=req.body.allQuestions;
   var quizID=req.params.id;
+console.log("allQuestions="+JSON.stringify(allQuestions))
+console.log("quiz="+JSON.stringify(quiz));
 
  con.transaction().then(transaction => {
   return Quiz.update({
