@@ -12,6 +12,11 @@
     height: 750px;
   } 
 }
+@media screen and (max-width: 1000px) {
+  .containers {
+    height: 750px;
+  } 
+}
 </style>
 <div class="container-fluid containers">
   <% include ./partials/navbar %>
@@ -25,7 +30,7 @@
       </div>  
 </div>
 
-<div class="row justify-content-center">
+<div class="row justify-content-center" style="min-height: 500px;">
   <% for(var i=0; i< data['categories'].length ; i++) { %> 
      <div class="col-5" style="margin-top: 50px;">
       <a href="/getAllQuizesBYCategory/<%=data['categories'][i]['DISTINCT']%>/0" style="text-decoration:none">
