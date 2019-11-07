@@ -1,5 +1,6 @@
 module.exports = function(app,passport,Quiz,Question,Teacher,con) {
 
+  /// teacher add quiz
   app.get('/addQuiz', isLoggedIn, function(req, res){
     var result = [];
     result["user"]=req.user;
@@ -47,7 +48,7 @@ module.exports = function(app,passport,Quiz,Question,Teacher,con) {
    
 });
 
-
+//teacher save quiz
 app.post('/saveQuiz', isLoggedIn, function(req, res){
   var quiz= req.body.quiz;
   var allQuestions=req.body.allQuestions;
@@ -74,7 +75,7 @@ app.post('/saveQuiz', isLoggedIn, function(req, res){
    })
 });
 
-
+/// teacher get his published quizzes
 app.get("/getMyPublishedQuizes/:page", isLoggedIn,function(req,res) {
 var teacherID=req.user.ID;
 var page=req.params.page;
@@ -111,7 +112,7 @@ Quiz.count({
 
 })
 
-
+/// teacher show single quiz
 app.get("/getSingleQuiz/:id", isLoggedIn,function(req,res) {
   var quizID=req.params.id;
   var result=[];
@@ -142,7 +143,7 @@ app.get("/getSingleQuiz/:id", isLoggedIn,function(req,res) {
   })
 })
 
-
+///teacher get his saved quizes
 app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
   var teacherID=req.user.ID;
   var page=req.params.page;
@@ -185,7 +186,7 @@ app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
   
  })
 
- 
+ ///teacher delete saved quiz
  app.get("/deleteSingleQuiz/:quzid",isLoggedIn,function(req,res) {
   var quizID=req.params.quzid;
   var teacherID=req.user.ID;
@@ -213,7 +214,7 @@ app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
 
  })
   
-
+///teacher publish from saved quizzes
  app.get("/publishFromSavedQuizes/:quizid",function (req,res) {
   var quizID=req.params.quizid;
   var teacherID=req.user.ID;
@@ -231,7 +232,7 @@ app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
  });
 
 
-
+///teacher edit or publish saved quiz
  app.get("/getToUpdateFromSavedQuizes/:id", isLoggedIn,function(req,res) {
   var quizID=req.params.id;
   var result=[];
@@ -262,7 +263,7 @@ app.get("/getMySavedQuizes/:page",isLoggedIn,function(req,res) {
   })
 })
 
-
+/// teacher save his quiz
 app.post('/UpdateFromSavedQuizes/:id', isLoggedIn, function(req, res){
   var quiz= req.body.quiz;
   var allQuestions=req.body.allQuestions;
@@ -305,7 +306,7 @@ app.post('/UpdateFromSavedQuizes/:id', isLoggedIn, function(req, res){
 });
 
 
-
+////teacher publish form saved quiz
 app.post('/publishFromEditSavedQuizes/:id', isLoggedIn, function(req, res){
   var quiz= req.body.quiz;
   var allQuestions=req.body.allQuestions;
@@ -356,7 +357,7 @@ app.post('/publishFromEditSavedQuizes/:id', isLoggedIn, function(req, res){
    })
 });
 
-
+///student get all subject's quizzes
 app.get("/getAllQuizesCategory",isLoggedIn,function (req,res) {
   var result=[];
   result["user"]=req.user;
@@ -372,7 +373,7 @@ app.get("/getAllQuizesCategory",isLoggedIn,function (req,res) {
 });  
 })
 
-
+/// student show all quizes that related to one subject
 app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) {
   var category=req.params.category;
   var perPage=4;
@@ -396,7 +397,7 @@ app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) 
 })
 
 
-
+///student start quiz
 app.get("/startQuiz/:id",function(req,res){
 var quizID=req.params.id;
 var result=[];
@@ -433,7 +434,7 @@ Quiz.findOne({
 })
 })
 
-
+//student get his quiz result
 app.post("/getStudentResult/:id",function(req,res){
   var quizID=req.params.id;
   var responses=req.body;
@@ -483,7 +484,7 @@ app.post("/getStudentResult/:id",function(req,res){
 ///end of function
 }
 
-
+///middleware to check authentication by passport
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated())
      return next();
