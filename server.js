@@ -40,7 +40,7 @@ app.use(flash());
 app.use(express.static(__dirname+'/public'));
 
 require('./app/loginAndRegisterRoutes.js')(app, passport);
-require('./app/quizRoutes.js')(app,passport,Quiz,Question,connection);
+require('./app/quizRoutes.js')(app,passport,Quiz,Question,Teacher,connection);
 
 var port = process.env.PORT || 8080;
 app.listen(port,function(){

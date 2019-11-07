@@ -1,4 +1,4 @@
-module.exports = function(app,passport,Quiz,Question,con) {
+module.exports = function(app,passport,Quiz,Question,Teacher,con) {
 
   app.get('/addQuiz', isLoggedIn, function(req, res){
     var result = [];
@@ -413,15 +413,24 @@ result["user"]=req.user;
 Quiz.findOne({
   row:true,
   where:{"ID":quizID}
-}).then((data)=>{
+}).then((data1)=>{
   result["status"]=true
-  result["quiz"]=data;
+  result["quiz"]=data1;
   Question.findAll({
     row:true,
     where:{"quizID":quizID}
-  }).then((data)=>{
-    result["questions"]=data;
-    res.render("startQuiz",{"data":result})
+  }).then((data2)=>{
+    result["questions"]=data2;
+         Teacher.findOne({
+           row:true,
+           where:{"ID":data1.teacherID}
+         }).then((data3)=>{
+            result["teacher"]=data3;
+          res.render("startQuiz",{"data":result})  
+         }).catch((err)=>{
+          res.render("startQuiz",{"data":result})  
+         })
+
   }).catch((err)=>{
     result["status"]=false
     res.render("startQuiz",{"data":data})
