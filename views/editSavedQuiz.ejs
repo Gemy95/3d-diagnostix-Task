@@ -176,7 +176,7 @@ $.AddNewQuiz=function (quiz,allQuestions)
   data: {"quiz":quiz,"allQuestions":allQuestions},
   dataType: 'json',
   success: function(data){
-    alert("data from server="+data);
+    //alert("data from server="+data);
     window.location.assign("/getMyPublishedQuizes/0");
   },
     fail: function(xhr, textStatus, errorThrown){
