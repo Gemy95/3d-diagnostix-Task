@@ -380,9 +380,6 @@ app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) 
   var Offset=perPage*page;
   var result=[];
   result["user"]=req.user;
-
-  //console.log("category="+category);
-
    Quiz.findAll({
      row:true,
      offset:Offset,limit:perPage,
@@ -390,17 +387,11 @@ app.get("/getAllQuizesBYCategory/:category/:page",isLoggedIn,function (req,res) 
    })
   .then((data)=> {
     result["quizes"]=data;
-      Quiz.count({
-       row:true,
-       where:{"isReady":1,"category":category}
-      }).then((count)=>{
-        result["count"]=Math.ceil((count/4.0));
-        res.render("showQuizes",{data:result})
-      }).catch((err)=>{
-        res.render("showQuizes",{data:""})
-      })
+    var count=data.length+1;
+    result["count"]=Math.ceil((count/4.0));
+    res.render("showQuizes",{data:result})
 }).catch((err)=>{
-    res.render("showQuizes",{data:""})
+    res.render("showQuizes",{data:result});
 });  
 })
 
