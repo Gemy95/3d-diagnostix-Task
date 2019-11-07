@@ -44,7 +44,7 @@
         <input class="form-control" type="text" name="quizCode" value="<%=data['quiz']['code']%>" required minlength="3" /> 
         </div>
         <div class=" col">
-        <span  style="font-size: 2vw;" >Category:</span>
+        <span  style="font-size: 2vw;" >Subject:</span>
         <select class="form-control" name="category" value="<%=data['quiz']['category']%>" required>
            <option value="math">Math</option>
            <option value="chemistry">Chemistry</option>
@@ -98,9 +98,7 @@
             <td>
                 <input type="text" name="explaination<%=(i+1)%>" value="<%=data['questions'][i]['explaination']%>"  class="form-control" minlength="3" required />
             </td>
-            <td>
-                <a class="deleteRow"></a>
-            </td>
+            <td><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td>
         </tr>
         <% } %>
     </tbody>
@@ -163,8 +161,15 @@ $(document).ready(function () {
 
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
+        if( $('#myTable tr').length-2 >1)
+        {
         $(this).closest("tr").remove();       
         counter -= 1
+        }
+        else
+        {
+            alert ("sorry your quiz must not be with empty questions");
+        }
     });
 
 
@@ -193,7 +198,7 @@ $.AddNewQuiz=function (quiz,allQuestions)
   data: {"quiz":quiz,"allQuestions":allQuestions},
   dataType: 'json',
   success: function(data){
-    alert("data from server="+data);
+    //alert("data from server="+data);
     window.location.reload();
   },
     fail: function(xhr, textStatus, errorThrown){
