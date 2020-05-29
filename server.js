@@ -43,6 +43,7 @@ require('./app/loginAndRegisterRoutes.js')(app, passport);
 require('./app/quizRoutes.js')(app,passport,Quiz,Question,Teacher,connection);
 
 var port = process.env.PORT || 8080;
+
 app.listen(port,function(){
     console.log("server is listening on Port: " + port)
 });
