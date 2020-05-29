@@ -18,21 +18,21 @@
  
     <% if(data['user'].type=='teacher') { %>
       <div class="row justify-content-center" style="padding: 10px;">
-            <div class="col-lg-2 col-md-3 col-sm-12  text-center"> <a class="btn btn-primary" href="/getMyPublishedQuizes/0">Show Published Quizes </a> </div> 
+            <div class="col-lg-2 col-md-3 col-sm-12  text-center"> <a class="btn btn-primary" href="http://localhost:8080/getMyPublishedQuizes/0">Show Published Quizes </a> </div> 
               &nbsp; &nbsp; &nbsp; &nbsp;
-            <div class="col-lg-2 col-md-3 col-sm-12 text-center"><a class="btn btn-warning" href="/getMySavedQuizes/0">Show Saved Quizes </a> </div>
+            <div class="col-lg-2 col-md-3 col-sm-12 text-center"><a class="btn btn-warning" href="http://localhost:8080/getMySavedQuizes/0">Show Saved Quizes </a> </div>
        </div>
      <% } %>
      <% if(data['user'].type=='student') { %>
       <div class="row justify-content-center">
-             <a class="btn btn-primary"  href="/getAllQuizesCategory"> Try Quizes</a>
+             <a class="btn btn-primary"  href="http://localhost:8080/getAllQuizesCategory"> Try Quizes</a>
        </div>
      <% } %>
      <br>
   <div class="row">
    <div class="col-sm-12">
     <div class="card card-body bg-light">
-     <div class="text-center"><img class="rounded-circle" src="https://diagnostix-quiz-app.herokuapp.com/<%=data['user'].image%>" style="width:100px;height: 100px;"></div>
+     <div class="text-center"><img class="rounded-circle" src="http://localhost:8080<%=data['user'].image%>" style="width:100px;height: 100px;"></div>
      <br>
      <h3><span class="fa fa-user"></span> Welcome <%= data['user'].firstName %> </h3>
      <br>

@@ -2,7 +2,11 @@ const sequelize = require("sequelize");
 
 class Connection {
     constructor(){
-        this.con = new sequelize('mysql://94B8sdwUHO:uAs7mEAtFS@remotemysql.com:3306/94B8sdwUHO', {
+      var url="";
+      // url ='mysql://94B8sdwUHO:uAs7mEAtFS@remotemysql.com:3306/94B8sdwUHO';
+        this.con = new sequelize('3ddxDB','root', 'root', {
+          host: 'localhost',
+          dialect: 'mysql' ,
           "logging": false,
             define: {
               timestamps: false

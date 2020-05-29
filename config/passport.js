@@ -104,6 +104,7 @@ module.exports = function(passport,Student,Teacher) {
           return done(null, obj);
         })
         .catch((err)=>{
+          //console.log("error="+err)
           return done(null, false, req.flash('signupMessage', 'error occurred'));
         })
 

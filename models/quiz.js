@@ -48,7 +48,7 @@ Quiz.init({
 
 , {
     sequelize:con,
-    modelName: 'quize'
+    modelName: 'quizze'
   });
 
    

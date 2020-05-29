@@ -1,0 +1,59 @@
+create database  if not exists 3ddxDB ;
+use 3ddxDB ;
+
+create table if not exists 3ddxdb.students(
+ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+firstName VARCHAR(50),
+lastName VARCHAR(50),
+age VARCHAR(50),
+email VARCHAR(50),
+image VARCHAR(50),
+password VARCHAR(254),
+phoneNumber VARCHAR(50),
+address VARCHAR(50),
+type VARCHAR(50),
+gender VARCHAR(50)
+)ENGINE=InnoDB;
+
+
+create table if not exists 3ddxdb.teachers(
+ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+firstName VARCHAR(50),
+lastName VARCHAR(50),
+age VARCHAR(50),
+email VARCHAR(50),
+image VARCHAR(50),
+password VARCHAR(254),
+phoneNumber VARCHAR(50),
+address VARCHAR(254),
+type VARCHAR(50),
+gender VARCHAR(50)
+)ENGINE=InnoDB;
+
+
+create table if not exists quizzes(
+ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(254),
+category VARCHAR(254),
+code VARCHAR(50),
+teacherID INT(6) UNSIGNED,
+isReady VARCHAR(50),
+creationDate Date,
+FOREIGN KEY (`teacherID`) REFERENCES teachers(`ID`) ON UPDATE CASCADE ON DELETE RESTRICT
+)ENGINE=InnoDB;
+
+
+
+create table if not exists questions(
+ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+question VARCHAR(254),
+answer1 VARCHAR(254),
+answer2 VARCHAR(254),
+answer3 VARCHAR(254),
+answer4 VARCHAR(254),
+correct VARCHAR(254),
+explaination VARCHAR(254),
+creationDate Date,
+quizID INT(6) UNSIGNED,
+FOREIGN KEY (`quizID`) REFERENCES questions(`ID`) ON UPDATE CASCADE ON DELETE RESTRICT
+)ENGINE=InnoDB;

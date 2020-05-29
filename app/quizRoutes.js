@@ -101,13 +101,16 @@ Quiz.count({
       data["user"]=req.user;
       data["count"]=Math.ceil(count/(perPage*1.0));
       data["result"]= result;
-      //console.log(data);
       res.render("publishedQuizes.ejs",{
         data:data
        });
-    }).catch((err)=>{result=-1})
+    }).catch((err)=>{
+      result=-1;
+      console.log("err catch="+err);
+    })
 }).catch((err)=>{
   count=-1;
+  console.log("err catch2="+err);
 });
 
 })
